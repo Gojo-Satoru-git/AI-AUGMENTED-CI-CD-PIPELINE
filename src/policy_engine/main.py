@@ -1,46 +1,45 @@
 import os
 import torch
-import torch.nn as nn
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 import uvicorn
-from src.features.trace_anomaly_lstm import TraceAnomalyLSTM
+from typing import Optional
+
+from src.models.preprocess_data import (
+    load_model,
+    load_preprocessed_dataset,
+    save_preprocessed_dataset,
+)
+
+from src.policy_engine.database import get_developer_tier
+from src.policy_engine.graph_generator import generate_root_cause_graph
 
 # ==========================================
 # 1. LOAD THE FROZEN BRAIN
 # ==========================================
-VOCAB_SIZE = 49  # Matches your notebook's VOCAB_SIZE
-EMBEDDING_DIM = 32
-HIDDEN_DIM = 64
 MAX_SEQ_LEN = 100
-
-model = TraceAnomalyLSTM(VOCAB_SIZE, EMBEDDING_DIM, HIDDEN_DIM, 1)
-model.load_state_dict(torch.load("src/models/saved/trace_anomaly_lstm.pth"))
-model.eval()  # Set to evaluation mode
+model = load_model()
 
 # ==========================================
 # 2. SETUP FASTAPI SERVER & SCHEMAS
 # ==========================================
 app = FastAPI(
-    title="AI Test-Triage Agent API",
-    description="Inference API for trace anomaly detection using PyTorch LSTM.",
+    title="AI Test-Triage Policy Engine API",
+    description="Inference API and Policy Engine for trace anomaly detection using PyTorch LSTM.",
 )
 
-# Request schema for local file path input
 class FilePathRequest(BaseModel):
-    file_path: str  # e.g., "data/raw/test_traces.csv" or "\x\y"
+    file_path: str
 
-# Request schema for single trace item
 class WebhookPayload(BaseModel):
     test_id: str
-    trace_sequence: str  # e.g., "4, 4, 2, 20, 17"
-
+    trace_sequence: str
+    developer_id: Optional[str] = "dev_junior_1" # Default to tier 1 for safety if missing
 
 # ==========================================
 # 3. PREPROCESSING & INFERENCE LOGIC
 # ==========================================
 def preprocess_trace(seq_string: str):
-    """The exact same cleaning function from your notebook"""
     tokens = []
     for x in str(seq_string).split(","):
         x = x.strip()
@@ -48,44 +47,54 @@ def preprocess_trace(seq_string: str):
             try:
                 tokens.append(int(float(x)))
             except ValueError:
-                pass  # Skip invalid values/empty strings
+                pass
 
     if len(tokens) > MAX_SEQ_LEN:
         return tokens[:MAX_SEQ_LEN]
     else:
         return tokens + [0] * (MAX_SEQ_LEN - len(tokens))
 
+def evaluate_policy(classification: str, developer_tier: int) -> str:
+    """Evaluates the Policy Matrix based on AI classification and dev tier."""
+    if classification == "Code Bug":
+        return "BLOCK_MERGE_ALERT_DEV"
+    
+    # Flaky/Infrastructure cases
+    if developer_tier >= 3:
+        return "AUTO_RETRY_PIPELINE"
+    else:
+        return "PAUSE_FOR_MANUAL_REVIEW"
 
-def predict_single(test_id: str, trace_sequence: str) -> dict:
-    """Helper function to run inference on a single task ID and trace sequence."""
+def predict_single(test_id: str, trace_sequence: str, developer_id: str = None) -> dict:
     clean_seq = preprocess_trace(trace_sequence)
-
-    # Convert to Tensor with Batch Dimension -> Shape: (1, 100)
     input_tensor = torch.tensor([clean_seq], dtype=torch.long)
 
     with torch.no_grad():
         probability = model(input_tensor).item()
 
-    classification = "Flaky/Infrastructure" if probability > 0.80 else "Code Bug"
+    is_flaky = probability > 0.80
+    classification = "Flaky/Infrastructure" if is_flaky else "Code Bug"
+
+    # Evaluate Policy
+    dev_tier = get_developer_tier(developer_id) if developer_id else 1
+    action_recommended = evaluate_policy(classification, dev_tier)
+
+    # Graph Integration
+    graph_path = None
+    if is_flaky:
+        graph_path = generate_root_cause_graph(test_id)
 
     return {
         "test_id": test_id,
+        "developer_id": developer_id,
+        "trust_tier": dev_tier,
         "anomaly_probability": round(probability, 4),
         "classification": classification,
-        "action_recommended": (
-            "RETRY_PIPELINE"
-            if classification == "Flaky/Infrastructure"
-            else "ALERT_DEVELOPER"
-        ),
+        "action_recommended": action_recommended,
+        "root_cause_graph": graph_path
     }
 
-
 def parse_and_process_file(file_path: str) -> list[dict]:
-    """Reads lines formatted like your raw CSV ('TaskID,trace_sequence...'),
-
-    preprocesses them, and runs model predictions.
-    """
-    # Normalize cross-platform file paths (handles '\' and '/' correctly)
     normalized_path = os.path.normpath(file_path)
 
     if not os.path.exists(normalized_path):
@@ -94,7 +103,6 @@ def parse_and_process_file(file_path: str) -> list[dict]:
         )
 
     results = []
-
     try:
         with open(normalized_path, "r", encoding="utf-8") as f:
             lines = f.read().splitlines()
@@ -102,48 +110,57 @@ def parse_and_process_file(file_path: str) -> list[dict]:
         for line_num, line in enumerate(lines, start=1):
             line = line.strip()
             if not line:
-                continue  # Skip empty lines
+                continue
 
-            # Matches the notebook logic: split TaskID from sequence on first comma
             parts = line.split(",", 1)
             if len(parts) == 2:
                 task_id, trace_seq = parts[0].strip(), parts[1].strip()
             else:
-                # Fallback if no task ID is present in the line
                 task_id, trace_seq = f"line_{line_num}", parts[0].strip()
 
             prediction = predict_single(test_id=task_id, trace_sequence=trace_seq)
             results.append(prediction)
 
         return results
-
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Error reading file '{normalized_path}': {str(e)}"
         )
 
+def classify_preprocessed_records(limit: int = 10) -> dict:
+    artifact = save_preprocessed_dataset(output_path="src/models/saved/preprocessed_dataset.json")
+    records = artifact["records"][:limit]
+    predictions = []
+
+    for record in records:
+        prediction = predict_single(
+            test_id=record["task_id"],
+            trace_sequence=record["trace_sequence"],
+        )
+        predictions.append(prediction)
+
+    return {
+        "total_records": len(predictions),
+        "predictions": predictions,
+        "metadata": artifact["metadata"],
+    }
 
 # ==========================================
 # 4. API ENDPOINTS
 # ==========================================
-
-
-# Option 1: Single Payload JSON Endpoint
 @app.post("/api/v1/triage")
 def triage_test_failure(payload: WebhookPayload):
     return predict_single(
-        test_id=payload.test_id, trace_sequence=payload.trace_sequence
+        test_id=payload.test_id, 
+        trace_sequence=payload.trace_sequence,
+        developer_id=payload.developer_id
     )
 
-
-# Option 2: POST File Path Endpoint (Body: {"file_path": "path/to/file"})
 @app.post("/api/v1/triage/file-path")
 def triage_from_file_path_post(payload: FilePathRequest):
     results = parse_and_process_file(payload.file_path)
     return {"total_records": len(results), "predictions": results}
 
-
-# Option 3: GET File Path Endpoint (Query parameter: ?file_path=path/to/file)
 @app.get("/api/v1/triage/file-path")
 def triage_from_file_path_get(
     file_path: str = Query(
@@ -153,9 +170,15 @@ def triage_from_file_path_get(
     results = parse_and_process_file(file_path)
     return {"total_records": len(results), "predictions": results}
 
+@app.get("/api/v1/triage/preprocessed")
+def triage_preprocessed_records(limit: int = Query(10, ge=1, le=100)):
+    return classify_preprocessed_records(limit=limit)
 
 # ==========================================
 # 5. SERVER RUNNER
 # ==========================================
 if __name__ == "__main__":
+    import uvicorn
+    from src.policy_engine.database import init_db
+    init_db() # Ensure DB is initialized when running main.py directly
     uvicorn.run(app, host="0.0.0.0", port=8000)
