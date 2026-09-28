@@ -1,0 +1,81 @@
+{
+  "accuracy": 0.7407,
+  "macro_f1": 0.7037,
+  "weighted_f1": 0.7357,
+  "per_class": {
+    "PASS": {
+      "precision": 0.6308,
+      "recall": 0.7824,
+      "f1": 0.6985,
+      "support": 2964
+    },
+    "INFRA_FLAKE": {
+      "precision": 0.7773,
+      "recall": 0.7374,
+      "f1": 0.7568,
+      "support": 2319
+    },
+    "DATA_FAULT": {
+      "precision": 0.7825,
+      "recall": 0.8315,
+      "f1": 0.8063,
+      "support": 3068
+    },
+    "ENV_FAULT": {
+      "precision": 0.8431,
+      "recall": 0.3293,
+      "f1": 0.4736,
+      "support": 832
+    },
+    "REAL_BUG": {
+      "precision": 0.8869,
+      "recall": 0.7015,
+      "f1": 0.7834,
+      "support": 1330
+    }
+  },
+  "confusion_matrix": [
+    [
+      2319,
+      177,
+      333,
+      26,
+      109
+    ],
+    [
+      412,
+      1710,
+      172,
+      22,
+      3
+    ],
+    [
+      398,
+      112,
+      2551,
+      3,
+      4
+    ],
+    [
+      240,
+      137,
+      178,
+      274,
+      3
+    ],
+    [
+      307,
+      64,
+      26,
+      0,
+      933
+    ]
+  ],
+  "labels": [
+    "PASS",
+    "INFRA_FLAKE",
+    "DATA_FAULT",
+    "ENV_FAULT",
+    "REAL_BUG"
+  ]
+}

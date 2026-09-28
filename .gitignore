@@ -1,2 +1,11 @@
+# Datasets and derived corpora are large; rebuild with src/data/build_sequences.py
 data/
 venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Training outputs. reports/ and the checkpoint ARE committed - they are
+# the evidence for review. Only scratch graph renders are ignored.
+graphs/

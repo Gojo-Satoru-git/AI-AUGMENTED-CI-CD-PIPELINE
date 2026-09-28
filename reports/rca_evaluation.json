@@ -1,0 +1,71 @@
+{
+  "ours": {
+    "DATA_FAULT": {
+      "top1": 0.2617,
+      "top3": 0.476,
+      "top5": 0.778
+    },
+    "INFRA_FLAKE": {
+      "top1": 0.5933,
+      "top3": 0.734,
+      "top5": 0.9947
+    },
+    "ENV_FAULT": {
+      "top1": 0.8172,
+      "top3": 0.9461,
+      "top5": 0.9829
+    },
+    "COMPOUND": {
+      "top1": 0.7385,
+      "top3": 0.9099,
+      "top5": 0.9474
+    },
+    "__n_traces_scored__": 10411
+  },
+  "random": {
+    "DATA_FAULT": {
+      "top1": 0.157,
+      "top3": 0.3807,
+      "top5": 0.506
+    },
+    "INFRA_FLAKE": {
+      "top1": 0.143,
+      "top3": 0.3227,
+      "top5": 0.4313
+    },
+    "ENV_FAULT": {
+      "top1": 0.0329,
+      "top3": 0.0811,
+      "top5": 0.1311
+    },
+    "COMPOUND": {
+      "top1": 0.0376,
+      "top3": 0.0887,
+      "top5": 0.1563
+    },
+    "__n_traces_scored__": 10411
+  },
+  "slowest_raw": {
+    "DATA_FAULT": {
+      "top1": 0.0,
+      "top3": 0.1497,
+      "top5": 0.2397
+    },
+    "INFRA_FLAKE": {
+      "top1": 0.0,
+      "top3": 0.5057,
+      "top5": 0.5677
+    },
+    "ENV_FAULT": {
+      "top1": 0.0,
+      "top3": 0.2499,
+      "top5": 0.3284
+    },
+    "COMPOUND": {
+      "top1": 0.0005,
+      "top3": 0.0873,
+      "top5": 0.1512
+    },
+    "__n_traces_scored__": 10411
+  }
+}

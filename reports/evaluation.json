@@ -1,0 +1,137 @@
+{
+  "model": {
+    "accuracy": 0.769,
+    "macro_f1": 0.7464,
+    "weighted_f1": 0.7607,
+    "per_class": {
+      "PASS": {
+        "precision": 0.7935,
+        "recall": 0.6029,
+        "f1": 0.6852,
+        "support": 2964
+      },
+      "INFRA_FLAKE": {
+        "precision": 0.7238,
+        "recall": 0.7922,
+        "f1": 0.7564,
+        "support": 2319
+      },
+      "DATA_FAULT": {
+        "precision": 0.7267,
+        "recall": 0.9126,
+        "f1": 0.8091,
+        "support": 3068
+      },
+      "ENV_FAULT": {
+        "precision": 0.6111,
+        "recall": 0.3966,
+        "f1": 0.481,
+        "support": 832
+      },
+      "REAL_BUG": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1330
+      }
+    },
+    "confusion_matrix": [
+      [
+        1787,
+        383,
+        616,
+        178,
+        0
+      ],
+      [
+        276,
+        1837,
+        205,
+        1,
+        0
+      ],
+      [
+        98,
+        139,
+        2800,
+        31,
+        0
+      ],
+      [
+        91,
+        179,
+        232,
+        330,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1330
+      ]
+    ],
+    "labels": [
+      "PASS",
+      "INFRA_FLAKE",
+      "DATA_FAULT",
+      "ENV_FAULT",
+      "REAL_BUG"
+    ]
+  },
+  "split_meta": {
+    "split_sizes": {
+      "train": 40967,
+      "val": 10287,
+      "test": 10513
+    },
+    "scenarios_per_split": {
+      "train": 234,
+      "val": 57,
+      "test": 57
+    },
+    "class_counts": {
+      "train": {
+        "DATA_FAULT": 13924,
+        "INFRA_FLAKE": 10112,
+        "ENV_FAULT": 2573,
+        "REAL_BUG": 1294,
+        "PASS": 13064
+      },
+      "val": {
+        "DATA_FAULT": 3068,
+        "INFRA_FLAKE": 2273,
+        "ENV_FAULT": 691,
+        "REAL_BUG": 1159,
+        "PASS": 3096
+      },
+      "test": {
+        "DATA_FAULT": 3068,
+        "INFRA_FLAKE": 2319,
+        "ENV_FAULT": 832,
+        "REAL_BUG": 1330,
+        "PASS": 2964
+      }
+    },
+    "vocab_size": 87
+  },
+  "operational": {
+    "test_traces": 10513,
+    "wrongly_retried": 139,
+    "wrongly_retried_rate": 0.01322,
+    "real_bugs_missed": 0,
+    "real_bug_recall": 1.0
+  },
+  "compound_probe": {
+    "n": 20010,
+    "predicted_distribution": {
+      "PASS": 15563,
+      "INFRA_FLAKE": 1408,
+      "DATA_FAULT": 1210,
+      "ENV_FAULT": 1829,
+      "REAL_BUG": 0
+    },
+    "note": "COMPOUND scenarios inject multiple simultaneous faults and were never trained on. A sane model should route them to fault classes, not PASS."
+  }
+}

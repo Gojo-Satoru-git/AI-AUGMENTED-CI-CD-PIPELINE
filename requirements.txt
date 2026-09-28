@@ -1,8 +1,18 @@
-torch
-fastapi
-uvicorn
-networkx
-matplotlib
-pandas
-scikit-learn
-pydantic
+# Core
+torch==2.13.0
+numpy>=1.26
+pandas>=2.0
+scikit-learn>=1.4
+matplotlib>=3.8
+
+# API
+fastapi>=0.110
+uvicorn>=0.27
+pydantic>=2.6
+httpx>=0.27          # required by fastapi.testclient
+
+# RCA graphs
+networkx>=3.2
+
+# Tests
+pytest>=8.0

@@ -1,33 +1,15 @@
-import sys
-import tempfile
-from pathlib import Path
+"""
+Legacy Phase 1 suite - retained only as a marker.
 
-from fastapi.testclient import TestClient
+This file imported `src.models.main`, which does not exist (the app lives at
+`src.policy_engine.main`), so it had never passed. The pipeline it tested read
+data/raw/failure_trace.csv, where each row is a 2155-wide EVENT-COUNT VECTOR
+that Phase 1 fed to nn.Embedding as if the counts were token IDs. That
+representation is superseded by src/data/build_sequences.py.
 
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+Current tests: tests/test_triage.py
+"""
+import pytest
 
-from src.models.main import app
-from src.models.preprocess_data import save_preprocessed_dataset
-
-
-def test_preprocessed_dataset_and_api(tmp_path: Path):
-    output_path = tmp_path / "preprocessed_dataset.json"
-
-    artifact = save_preprocessed_dataset(output_path=output_path)
-
-    assert artifact["metadata"]["vocab_size"] > 0
-    assert len(artifact["records"]) > 0
-
-    client = TestClient(app)
-    response = client.get("/api/v1/triage/preprocessed")
-
-    assert response.status_code == 200
-    assert response.json()["total_records"] > 0
-
-
-if __name__ == "__main__":
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        test_preprocessed_dataset_and_api(Path(tmp_dir))
-        print("test_preprocess_and_api passed")
+pytest.skip("superseded by tests/test_triage.py - see module docstring",
+            allow_module_level=True)
