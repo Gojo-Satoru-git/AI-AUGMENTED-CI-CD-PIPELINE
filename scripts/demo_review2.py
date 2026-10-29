@@ -136,51 +136,11 @@ def stage1_pick_examples(predictor):
 
 
 def predict_from_record(predictor, r, top_spans=3):
-    """Run the model on a corpus record exactly the way evaluate.py's batch
-    predict() does - real hr/ag/dep/dur codes and the real precomputed
-    task-level feature vector (r["f"]), not a lossy round-trip through the
-    /triage endpoint's raw-span reconstruction (which only knows op/status/
-    duration/depth, not host role, agent, or the task-level scalars - using
-    that path here silently degrades every prediction and was the actual
-    bug caught while building this demo)."""
-    max_len = predictor.max_len
-    toks = r["toks"].split(" ")[:max_len]
-    n = len(toks)
-    dur = [int(x) for x in r["dur"].split(",")][:n]
-    dep = [int(x) for x in r["dep"].split(",")][:n]
-    hr = [int(c) for c in r["hr"]][:n]
-    ag = [int(c) for c in r["ag"]][:n]
-
-    feats = torch.tensor([task_features(r)], dtype=torch.float32)
-    feats = (feats - predictor.feat_mean) / predictor.feat_std
-
-    batch = {
-        "ids": torch.tensor([[predictor.vocab.get(t, UNK) for t in toks]],
-                            dtype=torch.long),
-        "hr": torch.tensor([hr], dtype=torch.long),
-        "ag": torch.tensor([ag], dtype=torch.long),
-        "dep": torch.tensor([[min(d, N_DEPTHS - 1) for d in dep]],
-                            dtype=torch.long),
-        "dur": torch.tensor([[math.log1p(max(d, 0)) for d in dur]],
-                            dtype=torch.float32),
-        "mask": torch.ones(1, n, dtype=torch.bool),
-        "lens": torch.tensor([n], dtype=torch.long),
-        "feat": feats,
-    }
-    batch = {k: v.to(predictor.device) for k, v in batch.items()}
-    with torch.no_grad():
-        logits, att = predictor.model(batch, return_attention=True)
-    probs = torch.softmax(logits, -1)[0]
-    k = int(probs.argmax())
-    w = att[0][:n]
-    order = torch.argsort(w, descending=True)[:top_spans]
-    evidence = [{"index": int(i), "token": toks[int(i)],
-                "attention": round(float(w[int(i)]), 4)} for i in order]
-    return {
-        "classification": predictor.labels[k],
-        "confidence": round(float(probs[k]), 4),
-        "evidence_spans": evidence,
-    }
+    """Faithful prediction from a corpus record (real host/agent codes and
+    task-level features, as evaluate.py does). Delegates to the predictor's
+    own method; an earlier version rebuilt raw spans here, which lost those
+    inputs and made the model call every trace REAL_BUG."""
+    return predictor.predict_record(r, top_spans=top_spans)
 
 
 def stage2_walkthrough(predictor, baseline, records, agent_id="demo_agent"):

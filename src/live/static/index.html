@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Release Gate - Control Room</title>
+<style>
+:root{--bg:#0f1720;--panel:#17212c;--panel2:#1d2a37;--line:#2a3a4a;--text:#e6edf3;--mute:#8aa0b4;
+--green:#2fbf8f;--red:#ef5b5b;--amber:#f0a73a;--blue:#4c9be8;--violet:#9b7be8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,Segoe UI,Roboto,sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+header h1{font-size:17px;margin:0;font-weight:650}
+.pill{padding:3px 10px;border-radius:99px;font-size:12px;border:1px solid var(--line);color:var(--mute)}
+.pill.live{color:var(--green);border-color:#2fbf8f66}
+.pipe{display:flex;gap:4px;padding:10px 20px;overflow-x:auto;border-bottom:1px solid var(--line);align-items:stretch}
+.stage{min-width:104px;flex:1;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 8px;cursor:pointer}
+.stage:hover{border-color:var(--blue)}
+.stage small{display:block;color:var(--mute);font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+.stage b{font-size:12px;font-weight:600;white-space:nowrap}
+.arrow{align-self:center;color:var(--mute)}
+nav{display:flex;gap:4px;padding:10px 20px 0;flex-wrap:wrap}
+nav button{border-radius:8px 8px 0 0;border-bottom:none;background:transparent;color:var(--mute)}
+nav button.sel{background:var(--panel);color:var(--text);border-color:var(--blue)}
+main{padding:14px 20px}
+.tab{display:none}.tab.show{display:block}
+.grid3{display:grid;grid-template-columns:280px 1fr 360px;gap:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:1100px){.grid3,.grid2{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+.card h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:0 0 10px;font-weight:600}
+.col{min-width:0}
+button{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:7px;padding:7px 10px;cursor:pointer;font:inherit;text-align:left}
+button:hover{border-color:var(--blue)}
+button.on{border-color:var(--amber);background:#3a2f1a}
+button.primary{background:#1c4a6e;border-color:var(--blue);text-align:center}
+.faults{display:grid;gap:6px}
+.faults small{display:block;color:var(--mute);font-size:11px}
+.row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+select,input[type=range]{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px}
+input[type=range]{flex:1;padding:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kpi{background:var(--panel2);border-radius:8px;padding:10px}
+.kpi b{display:block;font-size:22px;font-weight:650}
+.kpi span{color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.tiers{display:flex;gap:6px}
+.tier{flex:1;text-align:center;padding:10px 4px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);color:var(--mute);font-size:12px}
+.tier b{display:block;font-size:16px}
+.tier.cur{background:#14392f;border-color:var(--green);color:var(--text)}
+canvas{width:100%;height:230px;display:block}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{color:var(--mute);font-weight:500;text-align:left;padding:4px 6px;border-bottom:1px solid var(--line)}
+td{padding:4px 6px;border-bottom:1px solid #223140;white-space:nowrap}
+.ok{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--amber)}.mute{color:var(--mute)}
+.mono,.tree,pre{font:12px/1.6 ui-monospace,Consolas,monospace}
+.tree{overflow-x:auto}.tree div{white-space:nowrap}
+pre{background:var(--panel2);border-radius:8px;padding:10px;overflow:auto;max-height:340px;margin:8px 0 0;white-space:pre-wrap}
+.verdict{margin-top:10px;padding:10px;border-radius:8px;background:var(--panel2)}
+.log div{padding:6px 0;border-bottom:1px solid #223140;font-size:12px}
+.tag{display:inline-block;padding:1px 7px;border-radius:5px;font-size:11px;margin-right:6px}
+.up{background:#14392f;color:var(--green)}.down{background:#4a1d1d;color:var(--red)}
+.note{color:var(--mute);font-size:12px;margin-top:8px}
+.bar{height:10px;background:var(--panel2);border-radius:5px;overflow:hidden;min-width:120px}
+.bar i{display:block;height:100%;background:var(--blue)}
+.bar i.g{background:var(--green)}.bar i.r{background:var(--red)}
+.big{font-size:26px;font-weight:700}
+.badge{display:inline-block;padding:2px 10px;border-radius:6px;font-weight:650}
+.badge.ALLOW,.badge.PROMOTE{background:#14392f;color:var(--green)}
+.badge.BLOCK,.badge.ROLLBACK{background:#4a1d1d;color:var(--red)}
+.badge.REVIEW,.badge.HOLD{background:#3a2f1a;color:var(--amber)}
+.scroll{max-height:330px;overflow:auto}
+html.light{--bg:#fff;--panel:#fff;--panel2:#f2f2f2;--line:#b0b0b0;--text:#000;--mute:#444;--green:#0b7a3b;--red:#b00020;--amber:#8a5a00;--blue:#0b5cad}
+.light button.primary{background:#dbe9f7;border-color:#0b5cad}.light .tier.cur,.light .up,.light .badge.ALLOW,.light .badge.PROMOTE{background:#d9f0e3}
+.light button.on,.light .badge.REVIEW,.light .badge.HOLD{background:#fdecc8}.light .down,.light .badge.BLOCK,.light .badge.ROLLBACK{background:#f8d7da}
+.light td,.light .log div{border-bottom-color:#ddd}
+</style>
+</head>
+<body>
+<header>
+  <h1>AI Release Gate &middot; Control Room</h1>
+  <span class="pill live" id="live">&#9679; live</span>
+  <span class="pill" id="agent"></span>
+  <span class="pill" id="seclbl"></span>
+</header>
+<div class="pipe" id="pipe"></div>
+<nav id="nav"></nav>
+<main>
+
+<!-- ===================== LIVE ===================== -->
+<section class="tab show" id="tab-live">
+<div class="grid3">
+  <div class="col">
+    <div class="card">
+      <h2>Inject a fault into the shop</h2>
+      <div class="faults" id="faults"></div>
+      <div class="row"><button class="primary" id="scn" style="flex:1">&#9654; Run scripted demo (390 requests)</button></div>
+      <div class="row"><button id="chaos" style="flex:1">&#128053; Chaos monkey: OFF</button></div>
+      <div class="note" id="scnnote"></div>
+    </div>
+    <div class="card">
+      <h2>Controls</h2>
+      <div class="row">Traffic <input type="range" id="rate" min="1" max="20" value="4"><span id="ratev">4/s</span></div>
+      <div class="row">Restart agent at
+        <select id="st"><option value="0">T0</option><option value="1">T1</option><option value="2">T2</option><option value="3">T3</option></select>
+        <button id="reset">Reset</button><button id="pause">Pause</button></div>
+      <div class="row"><button id="secbtn" style="flex:1">Security scan: clean</button></div>
+      <div class="note">Ground truth is exact: the injector knows whether the fault bit each request; that outcome is fed back to the trust engine.</div>
+    </div>
+    <div class="card">
+      <h2>Actuator (dry-run)</h2>
+      <div class="note" style="margin:0 0 6px" id="nact"></div>
+      <div class="tree" id="act"></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <h2>Agent autonomy (trust tier)</h2>
+      <div class="tiers" id="tiers"></div>
+      <div class="kpis" style="margin-top:12px">
+        <div class="kpi"><span>Requests</span><b id="k_n">0</b></div>
+        <div class="kpi"><span>Accuracy (all)</span><b id="k_acc">-</b></div>
+        <div class="kpi"><span>Accuracy (last 50)</span><b id="k_rec">-</b></div>
+        <div class="kpi"><span>Unsafe auto actions</span><b id="k_uns">0</b></div>
+      </div>
+    </div>
+    <div class="card"><h2>Trust tier over time (shaded = injected fault)</h2><canvas id="chart"></canvas></div>
+    <div class="card">
+      <h2>Live decisions</h2>
+      <div style="overflow-x:auto"><table><thead><tr><th>#</th><th>injected</th><th>truth</th><th>agent says</th><th>action</th><th>tier</th><th></th></tr></thead><tbody id="feed"></tbody></table></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <h2>Latest trace</h2>
+      <div class="tree" id="tree"></div>
+      <div class="verdict" id="verdict"></div>
+    </div>
+    <div class="card"><h2>Trust tier changes</h2><div class="log" id="log"></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ===================== RELEASE GATE ===================== -->
+<section class="tab" id="tab-gate">
+<div class="grid2">
+  <div>
+    <div class="card">
+      <h2>Canary release: compare a new version against the baseline (40 traces each)</h2>
+      <div class="faults" style="grid-template-columns:repeat(3,1fr)" id="canbtns"></div>
+      <div class="note">Each button deploys a "new version" that behaves like that fault and compares it with a healthy baseline using Wilson-interval error rates and p95 latency.</div>
+      <div id="canres"></div>
+    </div>
+    <div class="card">
+      <h2>Security signal feeding the gate</h2>
+      <div class="row"><button id="secbtn2">Security scan: clean</button><span class="note" id="secnote"></span></div>
+    </div>
+  </div>
+  <div>
+    <div class="card"><h2>Release gate: four signals, one decision</h2><div id="gatesig"><span class="mute">Run a canary to see all four signals combined. Precedence: security BLOCK &gt; canary ROLLBACK &gt; out-of-distribution &gt; triage.</span></div></div>
+    <div class="card"><h2>The PR comment the actuator would post</h2><pre id="pr">-</pre></div>
+  </div>
+</div>
+</section>
+
+<!-- ===================== RCA ===================== -->
+<section class="tab" id="tab-rca">
+<div class="grid2">
+  <div>
+    <div class="card"><h2>Latest incident (live): suspect spans</h2><div id="incident"><span class="mute">No incident yet. Inject a fault on the Live tab.</span></div></div>
+    <div class="card"><h2>Auto-generated postmortem</h2><pre id="pm">-</pre></div>
+  </div>
+  <div>
+    <div class="card"><h2>Localisation accuracy on real HDFS faults (top-k)</h2><div id="rcaeval"></div>
+      <div class="note">Evaluated against a stated proxy (first span whose own status is non-OK), not an independently labelled root cause.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ===================== SECURITY ===================== -->
+<section class="tab" id="tab-sec">
+<div class="card"><h2>CVE reachability gate</h2><div id="secsum"></div>
+<div class="row"><button class="primary" id="secrun">Re-run reachability analysis</button><span class="note" id="secrunnote"></span></div></div>
+<div class="card"><h2>Findings</h2><div class="scroll"><table><thead><tr><th>package</th><th>version</th><th>vulnerability</th><th>reachability</th><th>evidence</th></tr></thead><tbody id="secrows"></tbody></table></div></div>
+</section>
+
+<!-- ===================== REAL DATA ===================== -->
+<section class="tab" id="tab-hdfs">
+<div class="grid2">
+  <div>
+    <div class="card"><h2>Run the real HDFS model on a real trace</h2>
+      <div class="row" id="hdfsbtns"></div>
+      <div class="note">Real TraceBench traces exported as Jaeger JSON, then adapter &rarr; drift guard &rarr; HDFS-trained BiLSTM. The "foreign" trace is from an unrelated app: the gate must abstain.</div>
+      <div id="hdfsres"></div></div>
+    <div class="card"><h2>Held-out test performance (macro-F1)</h2><div id="basebars"></div><div class="note" id="opnote"></div></div>
+  </div>
+  <div>
+    <div class="card"><h2>Confusion matrix (rows = truth)</h2><div id="cm"></div></div>
+    <div class="card"><h2>What the Jaeger route costs the model</h2><div id="fid"></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ===================== CHAOS ===================== -->
+<section class="tab" id="tab-chaos">
+<div class="grid2">
+  <div>
+    <div class="card"><h2>Chaos experiments (offline sweep on real traces)</h2><div id="chaostab"></div></div>
+    <div class="card"><h2>Trust tier during the chaos run</h2><canvas id="chaoschart" style="height:160px"></canvas><div class="note" id="chaosnote"></div></div>
+  </div>
+  <div>
+    <div class="card"><h2>Trust engine replay on 10,513 test traces</h2><img src="/reports/trust_trajectory.png" style="width:100%;border-radius:8px;background:#fff"></div>
+    <div class="note">Live chaos is on the Live tab: the fault buttons and the Chaos monkey inject faults into a running system.</div>
+  </div>
+</div>
+</section>
+
+<!-- ===================== OBSERVABILITY ===================== -->
+<section class="tab" id="tab-obs">
+<div class="grid2">
+  <div class="card"><h2>Prometheus /metrics (scraped by Grafana)</h2><pre id="metrics" style="max-height:480px">-</pre>
+    <div class="row"><a href="/metrics" target="_blank" style="color:var(--blue)">open /metrics</a>
+    <a href="/docs" target="_blank" style="color:var(--blue)">API docs</a>
+    <a id="jlink" href="http://127.0.0.1:16686" target="_blank" style="color:var(--blue)">Jaeger UI</a></div></div>
+  <div class="card"><h2>Where each module lives</h2><div id="mods"></div></div>
+</div>
+</section>
+</main>
+
+<script>
+const LIGHT=location.search.includes("light");if(LIGHT)document.documentElement.classList.add("light");
+const GRID=LIGHT?"#ddd":"#223140",MUTEC=LIGHT?"#444":"#8aa0b4",XC=LIGHT?"#000":"#fff";
+const NAMES={none:"healthy",slow_db:"slow db",flaky_net:"flaky network",db_corruption:"data corruption",host_down:"host down",code_bug:"code bug",novel_bug:"unseen bug",silent_bug:"SILENT bug"};
+const HINT={none:"normal traffic",slow_db:"latency spike",flaky_net:"retries, transient errors",db_corruption:"deterministic data error",host_down:"node failure",code_bug:"real defect",novel_bug:"new failure shape",silent_bug:"no trace signature"};
+const COL={none:"#2a3a4a",slow_db:"#f0a73a",flaky_net:"#4c9be8",db_corruption:"#9b7be8",host_down:"#ef8a5b",code_bug:"#ef5b5b",novel_bug:"#e85bb0",silent_bug:"#ff2d2d"};
+const TIERS=["observe","recommend","act + rollback","autonomous"];
+const TABS=[["live","Live operations"],["gate","Release gate & canary"],["rca","Root cause"],["sec","Security"],["hdfs","Real data (HDFS)"],["chaos","Chaos & trust"],["obs","Observability"]];
+let S=null,R=null,cur="live",CAN=null;
+const $=id=>document.getElementById(id);
+async function api(p,b){const r=await fetch(p,b===undefined?{}:{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)});return r.json()}
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const pct=v=>(v*100).toFixed(1)+"%";
+const bar=(v,cls="")=>`<div class="bar"><i class="${cls}" style="width:${Math.max(0,Math.min(1,v))*100}%"></i></div>`;
+const badge=v=>`<span class="badge ${v}">${v}</span>`;
+
+function build(){
+  $("nav").innerHTML=TABS.map(t=>`<button data-t="${t[0]}" class="${t[0]===cur?"sel":""}">${t[1]}</button>`).join("");
+  document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>show(b.dataset.t));
+  $("faults").innerHTML=S.faults.map(f=>`<button data-f="${f}"><b>${NAMES[f]}</b><small>${HINT[f]}</small></button>`).join("");
+  document.querySelectorAll("#faults button").forEach(b=>b.onclick=()=>api("/api/fault",{kind:b.dataset.f}));
+  $("canbtns").innerHTML=S.faults.map(f=>`<button data-c="${f}"><b>${f==="none"?"healthy v2":NAMES[f]}</b></button>`).join("");
+  document.querySelectorAll("#canbtns button").forEach(b=>b.onclick=()=>canary(b.dataset.c));
+  $("tiers").innerHTML=TIERS.map((t,i)=>`<div class="tier" id="t${i}"><b>T${i}</b>${t}</div>`).join("");
+  $("scn").onclick=()=>api("/api/scenario",{});
+  $("chaos").onclick=()=>api("/api/chaos",{});
+  $("reset").onclick=()=>api("/api/reset",{start_tier:+$("st").value});
+  $("pause").onclick=async()=>{const r=await api("/api/pause",{});$("pause").textContent=r.paused?"Resume":"Pause"};
+  $("rate").oninput=()=>{$("ratev").textContent=$("rate").value+"/s";api("/api/rate",{rate:+$("rate").value})};
+  const sec=()=>api("/api/security",{kind:S.security_mode==="vuln"?"clean":"vuln"});
+  $("secbtn").onclick=sec;$("secbtn2").onclick=sec;
+  $("secrun").onclick=async()=>{$("secrunnote").textContent="running...";const r=await api("/api/security/run",{});$("secrunnote").textContent="done";R=await api("/api/reports");renderSec()};
+  $("hdfsbtns").innerHTML=[["pass","PASS trace"],["infra_flake","INFRA_FLAKE"],["data_fault","DATA_FAULT"],["env_fault","ENV_FAULT"],["foreign","foreign app trace"]].map(x=>`<button data-h="${x[0]}">${x[1]}</button>`).join("");
+  document.querySelectorAll("#hdfsbtns button").forEach(b=>b.onclick=()=>hdfs(b.dataset.h));
+  $("mods").innerHTML=[["S1 data","clock-aligned sequences from TraceBench (81,777 traces)"],["S2 triage","attention-pooled BiLSTM, 5 classes"],["S3 trust","Wilson-gated tiers T0-T3, demotion, hysteresis"],["S4 RCA","per-op baseline, suspect-span ranking, postmortem"],["S5 observability","Jaeger adapter, drift guard, canary, /metrics"],["S6 security","CVE reachability (27 flagged, 0 reachable)"],["S7 chaos","fault injectors + chaos monkey"],["S8 actuator","dry-run GitHub status/comment, quarantine, rollback"]].map(m=>`<div style="padding:6px 0;border-bottom:1px solid #223140"><b>${m[0]}</b> <span class="mute">${m[1]}</span></div>`).join("");
+}
+
+function show(t){
+  cur=t;
+  document.querySelectorAll(".tab").forEach(e=>e.classList.toggle("show",e.id==="tab-"+t));
+  document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("sel",b.dataset.t===t));
+  if(t!=="live"&&!R)api("/api/reports").then(r=>{R=r;renderTab()});else renderTab();
+}
+
+async function canary(kind){
+  $("canres").innerHTML='<div class="note">comparing 40 baseline and 40 canary traces...</div>';
+  CAN=await api("/api/canary",{kind});renderCanary();
+}
+async function hdfs(name){
+  $("hdfsres").innerHTML='<div class="note">running...</div>';
+  const r=await api("/api/hdfs",{kind:name});
+  const L=r.signals&&r.signals.drift;
+  const probs=r.probs?Object.entries(r.probs).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<tr><td>${k}</td><td>${bar(v,k===r.classification?"g":"")}</td><td>${v.toFixed(2)}</td></tr>`).join(""):"";
+  $("hdfsres").innerHTML=`<div class="verdict"><div>${r.n_spans} spans &middot; model says <b>${r.classification}</b> (conf ${(r.confidence||0).toFixed(2)})</div>
+   <div>decision: <b>${r.action}</b> &middot; rule <span class="mono">${r.rule}</span></div>
+   <div>drift guard: ${L?(L.in_distribution?'<span class="ok">in distribution</span>':'<span class="bad">OUT OF DISTRIBUTION</span>')+" &middot; OOV "+L.oov_rate:""}</div>
+   ${L&&L.note?`<div class="mute">${esc(L.note)}</div>`:""}
+   <table style="margin-top:8px">${probs}</table>
+   ${r.rca?`<div style="margin-top:8px"><b>Top suspect spans</b></div><table><tr><th>op</th><th>status</th><th>z</th></tr>${r.rca.suspects.slice(0,4).map(s=>`<tr><td>${esc(s.op)}</td><td class="${s.error?"bad":""}">${s.status}</td><td>${s.z_score}</td></tr>`).join("")}</table>`:""}
+   <pre>${esc(r.comment)}</pre></div>`;
+}
+
+function renderCanary(){
+  if(!CAN)return;const c=CAN.report,g=CAN.gate;
+  $("canres").innerHTML=`<div class="verdict"><div class="big">${badge(c.verdict)} <span class="mute" style="font-size:13px">health score ${c.score}</span></div>
+   <div class="mute">${esc(c.reason)}</div>
+   <table style="margin-top:8px"><tr><th></th><th>baseline</th><th>canary</th></tr>
+   <tr><td>traces</td><td>${c.n_baseline}</td><td>${c.n_canary}</td></tr>
+   <tr><td>error rate</td><td>${pct(c.error_rate_baseline)}</td><td class="${c.error_rate_canary>c.error_rate_baseline?"bad":""}">${pct(c.error_rate_canary)}</td></tr>
+   <tr><td>p95 latency</td><td>${(c.p95_baseline_us/1000).toFixed(1)} ms</td><td>${(c.p95_canary_us/1000).toFixed(1)} ms (${c.p95_ratio}x)</td></tr></table></div>`;
+  const sg=g.signals,rows=[];
+  if(sg.security)rows.push(["security",badge(sg.security.verdict),esc(sg.security.reason||"")]);
+  if(sg.canary)rows.push(["canary",badge(sg.canary.verdict),"score "+sg.canary.score+": "+esc(sg.canary.reason)]);
+  rows.push(["triage",'<span class="mute">n/a (no failing trace)</span>',""]);
+  $("gatesig").innerHTML=`<table><tr><th>signal</th><th>verdict</th><th>detail</th></tr>${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td style="white-space:normal">${r[2]}</td></tr>`).join("")}</table>
+   <div class="verdict"><div class="big">Gate: ${badge(g.action.includes("REVIEW")?"REVIEW":(g.action.includes("BLOCK")||g.action.includes("ROLLBACK")?"BLOCK":"ALLOW"))} <span style="font-size:15px">${g.action}</span></div>
+   <div class="mute">recommended ${g.recommended} &middot; rule ${g.rule} &middot; agent at T${g.trust_tier} &middot; ${g.autonomous?"executes autonomously":"advisory only"}</div></div>`;
+  $("pr").textContent=CAN.comment;
+}
+
+function renderSec(){
+  if(!R)return;const s=R.security,v=s.verdict||{},sm=v.summary||{};
+  $("secsum").innerHTML=`<div class="big">${badge(v.verdict||"?")}</div><div class="mute">${esc(v.reason||"")}</div>
+   <div class="kpis" style="margin-top:10px"><div class="kpi"><span>CVEs flagged by pip-audit</span><b>${sm.flagged??"-"}</b></div>
+   <div class="kpi"><span>Reachable from the service</span><b>${sm.actionable??"-"}</b></div>
+   <div class="kpi"><span>Noise removed</span><b>${sm.false_positive_reduction_pct??"-"}%</b></div>
+   <div class="kpi"><span>Method</span><b style="font-size:13px">AST import graph + dependency closure</b></div></div>
+   <div class="note">Not every CVE matters: only vulnerable code the running service can actually import is allowed to block a release. The Live tab's "Security scan" toggle simulates a reachable CVE to show the gate blocking.</div>`;
+  $("secrows").innerHTML=(s.findings||[]).map(f=>`<tr><td>${esc(f.package)}</td><td>${esc(f.version)}</td><td>${esc(f.vuln_id)}</td><td class="${f.reachability==="not-imported"?"ok":"bad"}">${esc(f.reachability)}</td><td class="mute">${esc(f.evidence||"")}</td></tr>`).join("");
+}
+
+function renderRCA(){
+  const I=S.incident;
+  if(I){
+    $("incident").innerHTML=`<div class="mute">request ${I.step}: injected <b>${NAMES[I.fault]}</b>, truth ${I.truth}, agent said <b>${I.pred}</b>, action ${I.action}</div>
+     <table style="margin-top:8px"><tr><th>#</th><th>operation</th><th>status</th><th>duration (us)</th><th>z-score</th><th>score</th></tr>
+     ${I.suspects.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.op)}</td><td class="${s.error?"bad":""}">${s.status}</td><td>${s.duration}</td><td>${s.z_score}</td><td><b>${s.score}</b></td></tr>`).join("")}</table>`;
+    $("pm").textContent=I.markdown;
+  }
+  if(R&&R.rca){
+    const o=R.rca.ours,rd=R.rca.random,sl=R.rca.slowest_raw||{};
+    $("rcaeval").innerHTML=`<table><tr><th>fault class</th><th>ours top-1</th><th>ours top-3</th><th>random top-3</th><th>slowest-span top-3</th></tr>
+     ${["INFRA_FLAKE","ENV_FAULT","DATA_FAULT","COMPOUND"].map(k=>`<tr><td>${k}</td><td>${pct(o[k].top1)}</td><td><b>${pct(o[k].top3)}</b></td><td class="mute">${pct(rd[k].top3)}</td><td class="mute">${sl[k]?pct(sl[k].top3):"-"}</td></tr>`).join("")}</table>`;
+  }
+}
+
+function renderHdfs(){
+  if(!R)return;
+  const b=R.baselines,ev=R.evaluation,max=Math.max(...Object.values(b),ev.model.macro_f1);
+  const rows=Object.entries(b).sort((x,y)=>x[1]-y[1]).map(([k,v])=>[k,v,false]).concat([["BiLSTM + attention (ours)",ev.model.macro_f1,true]]);
+  $("basebars").innerHTML=`<table>${rows.map(r=>`<tr><td>${r[0]}</td><td style="width:45%">${bar(r[1],r[2]?"g":"")}</td><td><b>${r[1].toFixed(3)}</b></td></tr>`).join("")}</table>`;
+  const op=ev.operational;
+  $("opnote").textContent=`${op.test_traces.toLocaleString()} held-out traces, accuracy ${ev.model.accuracy}. REAL_BUG missed: ${op.real_bugs_missed}. REAL_BUG's 1.0 is a workload confound, so the honest headline excludes it.`;
+  const L=ev.model.labels,M=ev.model.confusion_matrix;
+  $("cm").innerHTML=`<table><tr><th></th>${L.map(l=>`<th>${l.slice(0,5)}</th>`).join("")}</tr>${M.map((row,i)=>{const t=row.reduce((a,b)=>a+b,0);return `<tr><td>${L[i]}</td>${row.map((v,j)=>`<td style="background:rgba(${i===j?"47,191,143":"239,91,91"},${Math.min(.8,v/t*(i===j?1:2.5))});text-align:right">${v}</td>`).join("")}</tr>`}).join("")}</table>`;
+  const f=R.fidelity;
+  if(f)$("fid").innerHTML=`<table>${[["Corpus records (training format)",f.corpus.accuracy],["Jaeger export with training schema",f.rich_export.accuracy],["Stock Jaeger export",(f.bare_export||{}).accuracy]].map(r=>`<tr><td>${r[0]}</td><td style="width:40%">${bar(r[1]||0,"")}</td><td>${r[1]==null?"-":pct(r[1])}</td></tr>`).join("")}</table>
+   <div class="note">Measured on ${f.n_traces} held-out traces. This is why the gate abstains on anything not demonstrably in-distribution.</div>`;
+}
+
+function renderChaos(){
+  if(!R||!R.chaos)return;const c=R.chaos;
+  $("chaostab").innerHTML=`<table><tr><th>injected fault</th><th>truth</th><th>n</th><th>class correct</th><th>flagged</th><th>unsafe</th></tr>
+   ${Object.entries(c.by_fault).map(([k,v])=>`<tr><td>${k}</td><td>${v.truth}</td><td>${v.n}</td><td>${pct(v.class_match_rate)}</td><td>${pct(v.flagged_as_fault_rate)}</td><td class="${v.unsafe_autonomous_actions?"bad":""}">${v.unsafe_autonomous_actions}</td></tr>`).join("")}</table>
+   <div class="note">Rows with truth PASS are controls: they show the false-alarm floor every fault row must beat. silent_regression has no trace signature by construction.</div>`;
+  const t=c.tier_trajectory,cv=$("chaoschart"),dpr=window.devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;
+  cv.width=W*dpr;cv.height=H*dpr;const g=cv.getContext("2d");g.scale(dpr,dpr);g.clearRect(0,0,W,H);
+  g.strokeStyle="#2fbf8f";g.lineWidth=2;g.beginPath();
+  t.forEach((v,i)=>{const x=10+(W-20)*i/(t.length-1),y=H-14-(H-28)*v/3;i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke();
+  g.fillStyle=MUTEC;g.font="11px system-ui";g.fillText("T3",0,16);g.fillText("T0",0,H-4);
+  $("chaosnote").textContent=`Started at T${c.start_tier}; ended at T${c.final_tier}; ${c.demotions.length} demotions; ${JSON.stringify(c.unsafe_actions)} unsafe actions.`;
+}
+
+function chart(){
+  const c=$("chart"),dpr=window.devicePixelRatio||1,W=c.clientWidth,H=c.clientHeight;
+  c.width=W*dpr;c.height=H*dpr;const g=c.getContext("2d");g.scale(dpr,dpr);g.clearRect(0,0,W,H);
+  const L=96,Rr=10,T=10,B=22,pw=W-L-Rr,ph=H-T-B,ser=S.series,n=Math.max(ser.length,60);
+  const x=i=>L+pw*i/n,y=t=>T+ph*(1-(t+.5)/4);
+  g.font="11px system-ui";g.fillStyle=MUTEC;g.textAlign="right";
+  TIERS.forEach((t,i)=>{g.fillText("T"+i+" "+t,L-8,y(i)+4);g.strokeStyle=GRID;g.beginPath();g.moveTo(L,y(i));g.lineTo(W-Rr,y(i));g.stroke()});
+  ser.forEach((s,i)=>{const f=S.faults[s[1]];if(f!=="none"){g.fillStyle=COL[f]+"33";g.fillRect(x(i),T,Math.max(1,pw/n),ph)}});
+  g.strokeStyle="#2fbf8f";g.lineWidth=2.2;g.beginPath();
+  ser.forEach((s,i)=>{const px=x(i),py=y(s[0]);if(i===0)g.moveTo(px,py);else{g.lineTo(px,y(ser[i-1][0]));g.lineTo(px,py)}});
+  if(ser.length)g.lineTo(x(ser.length),y(ser[ser.length-1][0]));g.stroke();
+  ser.forEach((s,i)=>{if(!s[2]){g.fillStyle="#ef5b5b";g.fillRect(x(i),H-B-6,Math.max(1.5,pw/n),6)}
+    if(s[3]){g.fillStyle=XC;g.font="bold 13px system-ui";g.textAlign="center";g.fillText("x",x(i),H-B-10)}});
+  S.events.forEach(e=>{const i=e.step-(S.n-ser.length)-1;if(i<0||i>=ser.length)return;g.fillStyle=e.action==="promoted"?"#2fbf8f":"#ef5b5b";
+    g.beginPath();const px=x(i),py=y(e.to);if(e.action==="promoted"){g.moveTo(px,py-8);g.lineTo(px-6,py+3);g.lineTo(px+6,py+3)}else{g.moveTo(px,py+8);g.lineTo(px-6,py-3);g.lineTo(px+6,py-3)}g.fill()});
+  g.fillStyle=MUTEC;g.textAlign="left";g.font="11px system-ui";
+  g.fillText("request #"+Math.max(1,S.n-ser.length+1),L,H-6);g.textAlign="right";g.fillText("#"+S.n,W-Rr,H-6);
+}
+
+function renderPipe(){
+  const L=S.latest||{},sg=L.signals||{},dr=sg.drift;
+  const st=[["live","Collect",S.otlp?"Jaeger / OTLP":"in-process"],["live","Adapter","clock-aligned"],
+   ["hdfs","Drift guard",dr?(dr.in_distribution?"in-dist":"OOD"):"-"],["live","Triage",L.pred||"-"],
+   ["rca","RCA",S.incident?"req "+S.incident.step:"-"],["live","Trust","T"+S.tier],
+   ["sec","Security",S.security.verdict],["gate","Canary",S.canary?S.canary.verdict:"-"],
+   ["live","Gate",L.action||"-"],["live","Actuator",S.n_actuations+" acts"],["obs","Metrics","/metrics"]];
+  $("pipe").innerHTML=st.map((s,i)=>`${i?'<span class="arrow">&rsaquo;</span>':""}<div class="stage" data-t="${s[0]}"><small>${s[1]}</small><b>${esc(s[2])}</b></div>`).join("");
+  document.querySelectorAll(".stage").forEach(e=>e.onclick=()=>show(e.dataset.t));
+}
+
+function renderLive(){
+  document.querySelectorAll("#faults button").forEach(b=>b.classList.toggle("on",b.dataset.f===S.fault));
+  for(let i=0;i<4;i++)$("t"+i).classList.toggle("cur",i===S.tier);
+  $("k_n").textContent=S.n;$("k_acc").textContent=S.accuracy==null?"-":pct(S.accuracy);
+  $("k_rec").textContent=S.recent_accuracy==null?"-":(S.recent_accuracy*100).toFixed(0)+"%";
+  $("k_uns").textContent=S.unsafe;$("k_uns").className=S.unsafe?"bad":"";
+  $("scnnote").textContent=S.scenario_active?`scripted demo running - ${S.scenario_left} requests left`:"";
+  $("chaos").textContent="Chaos monkey: "+(S.chaos?"ON (random faults)":"OFF");$("chaos").classList.toggle("on",S.chaos);
+  $("nact").textContent=S.n_actuations+" autonomous actions executed (dry-run, nothing real is touched)";
+  $("act").innerHTML=S.actuations.map(a=>`<div class="mute">${esc(a)}</div>`).join("");
+  $("feed").innerHTML=S.steps.map(s=>`<tr><td class="mute">${s.step}</td><td>${NAMES[s.fault]}</td><td>${s.truth}</td>
+   <td class="${s.ok?"ok":"bad"}">${s.pred} <span class="mute">${s.conf}</span></td><td>${s.action}${s.autonomous?"":" <span class='mute'>(advisory)</span>"}</td>
+   <td>T${s.tier}</td><td>${s.unsafe?"<span class='bad'>UNSAFE</span>":s.tier_action?"<span class='"+(s.tier_action==="promoted"?"ok":"bad")+"'>"+(s.tier_action==="promoted"?"&#9650;":"&#9660;")+"</span>":""}</td></tr>`).join("");
+  const L=S.latest;
+  if(L&&L.tree){
+    $("tree").innerHTML=L.tree.map(t=>`<div style="padding-left:${t.depth*14}px"><span class="mute">${t.svc}</span> ${esc(t.op)} <span class="${t.status==="OK"||t.status==="USER"?"mute":"bad"}">${t.ms} ms${t.status==="OK"||t.status==="USER"?"":" "+t.status}</span></div>`).join("");
+    const dr=L.signals&&L.signals.drift;
+    $("verdict").innerHTML=`<div>truth: <b>${L.truth}</b></div><div>agent: <b class="${L.ok?"ok":"bad"}">${L.pred}</b> (conf ${L.conf})</div>
+      <div>decision: <b>${L.action}</b> ${L.autonomous?"<span class='ok'>executed autonomously</span>":"<span class='warn'>advisory only at this tier</span>"}</div>
+      <div class="mute">rule: ${L.rule}${dr?" &middot; drift guard: "+(dr.in_distribution?"in-distribution":"OUT OF DISTRIBUTION"):""}</div>`;
+  } else if(L&&L.error){$("verdict").innerHTML=`<span class="bad">${esc(L.error)}</span>`}
+  $("log").innerHTML=S.events.length?S.events.slice().reverse().map(e=>`<div><span class="tag ${e.action==="promoted"?"up":"down"}">${e.action==="promoted"?"&#9650; promoted":"&#9660; demoted"} T${e.from}&rarr;T${e.to}</span> request ${e.step}<div class="mute">${esc(e.reason.slice(0,170))}</div></div>`).join(""):'<span class="mute">none yet - the agent starts with no autonomy and has to earn it.</span>';
+  chart();
+}
+
+function renderTab(){
+  if(!S)return;
+  if(cur==="live")renderLive();
+  else if(cur==="gate"){const t=S.security_mode==="vuln";$("secnote").textContent=t?"a reachable CVE is being injected: the gate will block":"using the stored scan: 27 flagged, 0 reachable";
+    if(S.comment&&!CAN)$("pr").textContent=S.comment}
+  else if(cur==="rca")renderRCA();
+  else if(cur==="sec")renderSec();
+  else if(cur==="hdfs")renderHdfs();
+  else if(cur==="chaos")renderChaos();
+  else if(cur==="obs"){fetch("/metrics").then(r=>r.text()).then(t=>$("metrics").textContent=t)}
+}
+
+async function tick(){
+  try{
+    const first=!S;S=await api("/api/state");if(first){build();const h=location.hash.slice(1);if(h)show(h);const q=new URLSearchParams(location.search);if(q.get('canary'))canary(q.get('canary'));if(q.get('hdfs'))hdfs(q.get('hdfs'))}
+    const vuln=S.security_mode==="vuln";
+    $("agent").textContent="agent: "+S.agent;$("seclbl").textContent="security scan: "+(vuln?"REACHABLE CVE (simulated)":"clean");
+    $("secbtn").textContent=$("secbtn2").textContent="Security scan: "+(vuln?"REACHABLE CVE":"clean")+" (click to toggle)";
+    $("secbtn").classList.toggle("on",vuln);$("secbtn2").classList.toggle("on",vuln);
+    renderPipe();renderTab();$("live").style.opacity=1;
+  }catch(e){$("live").style.opacity=.3}
+  setTimeout(tick,cur==="live"?500:1500);
+}
+tick();
+</script>
+</body>
+</html>

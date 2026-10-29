@@ -1,0 +1,452 @@
+{
+  "model": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "per_class": {
+      "PASS": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 131
+      },
+      "INFRA_FLAKE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 63
+      },
+      "DATA_FAULT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 17
+      },
+      "ENV_FAULT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 50
+      },
+      "REAL_BUG": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 39
+      }
+    },
+    "confusion_matrix": [
+      [
+        131,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        63,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        17,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        50,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        39
+      ]
+    ],
+    "labels": [
+      "PASS",
+      "INFRA_FLAKE",
+      "DATA_FAULT",
+      "ENV_FAULT",
+      "REAL_BUG"
+    ]
+  },
+  "split_meta": {
+    "split_sizes": {
+      "train": 1250,
+      "val": 300,
+      "test": 300
+    },
+    "scenarios_per_split": {
+      "train": 25,
+      "val": 6,
+      "test": 6
+    },
+    "class_counts": {
+      "train": {
+        "PASS": 574,
+        "INFRA_FLAKE": 222,
+        "DATA_FAULT": 94,
+        "ENV_FAULT": 200,
+        "REAL_BUG": 160
+      },
+      "val": {
+        "PASS": 161,
+        "INFRA_FLAKE": 33,
+        "DATA_FAULT": 11,
+        "ENV_FAULT": 50,
+        "REAL_BUG": 45
+      },
+      "test": {
+        "PASS": 131,
+        "INFRA_FLAKE": 63,
+        "DATA_FAULT": 17,
+        "ENV_FAULT": 50,
+        "REAL_BUG": 39
+      }
+    },
+    "vocab_size": 22
+  },
+  "baselines": {
+    "B1_majority": {
+      "accuracy": 0.4367,
+      "macro_f1": 0.1216,
+      "weighted_f1": 0.2654,
+      "per_class": {
+        "PASS": {
+          "precision": 0.4367,
+          "recall": 1.0,
+          "f1": 0.6079,
+          "support": 131
+        },
+        "INFRA_FLAKE": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 63
+        },
+        "DATA_FAULT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 17
+        },
+        "ENV_FAULT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 50
+        },
+        "REAL_BUG": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 39
+        }
+      },
+      "confusion_matrix": [
+        [
+          131,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          63,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          17,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          50,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          39,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "labels": [
+        "PASS",
+        "INFRA_FLAKE",
+        "DATA_FAULT",
+        "ENV_FAULT",
+        "REAL_BUG"
+      ]
+    },
+    "B2_task_scalars_gbm": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "weighted_f1": 1.0,
+      "per_class": {
+        "PASS": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 131
+        },
+        "INFRA_FLAKE": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 63
+        },
+        "DATA_FAULT": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 17
+        },
+        "ENV_FAULT": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "REAL_BUG": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 39
+        }
+      },
+      "confusion_matrix": [
+        [
+          131,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          63,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          17,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          50,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          39
+        ]
+      ],
+      "labels": [
+        "PASS",
+        "INFRA_FLAKE",
+        "DATA_FAULT",
+        "ENV_FAULT",
+        "REAL_BUG"
+      ]
+    },
+    "B3_bag_of_ops_counts_lr": {
+      "accuracy": 0.9633,
+      "macro_f1": 0.9752,
+      "weighted_f1": 0.964,
+      "per_class": {
+        "PASS": {
+          "precision": 1.0,
+          "recall": 0.916,
+          "f1": 0.9562,
+          "support": 131
+        },
+        "INFRA_FLAKE": {
+          "precision": 0.8514,
+          "recall": 1.0,
+          "f1": 0.9197,
+          "support": 63
+        },
+        "DATA_FAULT": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 17
+        },
+        "ENV_FAULT": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "REAL_BUG": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 39
+        }
+      },
+      "confusion_matrix": [
+        [
+          120,
+          11,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          63,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          17,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          50,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          39
+        ]
+      ],
+      "labels": [
+        "PASS",
+        "INFRA_FLAKE",
+        "DATA_FAULT",
+        "ENV_FAULT",
+        "REAL_BUG"
+      ]
+    },
+    "B4_bag_of_ops_tfidf_svm": {
+      "accuracy": 0.87,
+      "macro_f1": 0.8844,
+      "weighted_f1": 0.8493,
+      "per_class": {
+        "PASS": {
+          "precision": 0.7706,
+          "recall": 1.0,
+          "f1": 0.8704,
+          "support": 131
+        },
+        "INFRA_FLAKE": {
+          "precision": 1.0,
+          "recall": 0.381,
+          "f1": 0.5517,
+          "support": 63
+        },
+        "DATA_FAULT": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 17
+        },
+        "ENV_FAULT": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "REAL_BUG": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 39
+        }
+      },
+      "confusion_matrix": [
+        [
+          131,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          39,
+          24,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          17,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          50,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          39
+        ]
+      ],
+      "labels": [
+        "PASS",
+        "INFRA_FLAKE",
+        "DATA_FAULT",
+        "ENV_FAULT",
+        "REAL_BUG"
+      ]
+    }
+  },
+  "operational": {
+    "test_traces": 300,
+    "wrongly_retried": 0,
+    "wrongly_retried_rate": 0.0,
+    "real_bugs_missed": 0,
+    "real_bug_recall": 1.0
+  }
+}

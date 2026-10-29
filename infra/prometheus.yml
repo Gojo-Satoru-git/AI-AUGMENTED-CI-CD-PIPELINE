@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: ai-gate
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["triage-api:8000"]

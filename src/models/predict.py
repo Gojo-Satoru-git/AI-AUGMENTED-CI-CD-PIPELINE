@@ -43,7 +43,7 @@ def host_role(hostname: str) -> int:
 
 
 AGENTS = ["Namenode", "Datanode", "RPC Client", "DFSClient", "User", "OTH"]
-_AGENT_IX = {a: i for i, a in enumerate(AGENTS)}
+_AGENT_IX = {a.lower(): i for i, a in enumerate(AGENTS)}   # case-insensitive
 
 
 def normalise_op(op: str) -> str:
@@ -57,7 +57,7 @@ def spans_to_tokens(spans):
         toks.append(f"{normalise_op(s['op'])}|{s.get('status', 'OK')}")
         dur.append(int(s.get("duration", 0)))
         hr.append(host_role(s.get("host", "")))
-        ag.append(_AGENT_IX.get(str(s.get("agent", "")).strip(), 5))
+        ag.append(_AGENT_IX.get(str(s.get("agent", "")).strip().lower(), 5))
         dep.append(min(int(s.get("depth", 0)), N_DEPTHS - 1))
     return toks, dur, hr, ag, dep
 
@@ -69,6 +69,7 @@ class TriagePredictor:
         self.vocab = cfg["vocab"]
         self.labels = cfg["labels"]
         self.max_len = cfg["max_len"]
+        self.feature_schema = cfg.get("feature_schema", "tracebench_v1")
         self.feat_mean = torch.tensor(cfg["feat_mean"])
         self.feat_std = torch.tensor(cfg["feat_std"])
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
@@ -114,10 +115,28 @@ class TriagePredictor:
 
         toks, dur, hr, ag, dep = (x[: self.max_len]
                                   for x in (toks, dur, hr, ag, dep))
+        feats = self._task_feats(toks, dur, hr, dep, extra or {})
+        return self._infer(toks, dur, hr, ag, dep, feats, top_spans)
+
+    @torch.no_grad()
+    def predict_record(self, r, top_spans=5):
+        """Predict from a corpus record exactly as evaluate.py does: the real
+        precomputed host/agent/depth codes and the real task-level feature
+        vector r["f"]. Use this (not predict(spans=...)) whenever a corpus
+        record is available - reconstructing spans loses host role, agent and
+        the task scalars, which silently degrades every prediction."""
+        from src.data.dataset import task_features
+        toks = r["toks"].split(" ")[: self.max_len]
         n = len(toks)
-        feats = torch.tensor(
-            [self._task_feats(toks, dur, hr, dep, extra or {})],
-            dtype=torch.float32)
+        dur = [int(x) for x in r["dur"].split(",")][:n]
+        dep = [min(int(x), N_DEPTHS - 1) for x in r["dep"].split(",")][:n]
+        hr = [int(c) for c in r["hr"]][:n]
+        ag = [int(c) for c in r["ag"]][:n]
+        return self._infer(toks, dur, hr, ag, dep, task_features(r), top_spans)
+
+    def _infer(self, toks, dur, hr, ag, dep, feats, top_spans):
+        n = len(toks)
+        feats = torch.tensor([feats], dtype=torch.float32)
         feats = (feats - self.feat_mean) / self.feat_std
 
         batch = {

@@ -1,0 +1,68 @@
+# Stage 2: the AI release gate. Runs when `ci` finishes (workflow_run), because
+# GitHub only lets you rerun failed jobs of a COMPLETED run - which is exactly
+# what AUTO_RETRY_PIPELINE needs.
+#
+# SECURITY: workflow_run executes with the repository's write token and secrets,
+# so this workflow checks out and runs ONLY the default branch's code, never the
+# pull request's. The PR's artifacts (security verdict, trace) are treated as
+# untrusted DATA: parsed by the adapter, with node/deployment names validated by
+# the actuator before they can reach a command line.
+name: ai-gate
+
+on:
+  workflow_run:
+    workflows: ["ci"]
+    types: [completed]
+
+permissions:
+  contents: read
+  statuses: write        # post the `ai-gate` commit status
+  pull-requests: write   # comment on the PR
+  issues: write          # open the infra-escalation issue
+  actions: write         # rerun failed jobs (AUTO_RETRY_PIPELINE)
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4          # default branch: trusted code only
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install service dependencies
+        run: pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-service.txt
+
+      - name: Fetch the PR run's signals (untrusted data)
+        uses: actions/download-artifact@v4
+        continue-on-error: true            # a run with no artifacts is still gated
+        with:
+          name: gate-signals
+          path: signals
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: AI gate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GATE_SHA: ${{ github.event.workflow_run.head_sha }}
+          GATE_RUN_ID: ${{ github.event.workflow_run.id }}
+          GATE_PR: ${{ github.event.workflow_run.pull_requests[0].number }}
+          # Persistent trust state lives in the deployed service. If you have
+          # deployed it, set the repo variable TRIAGE_API_URL; otherwise the gate
+          # runs at the tier in AI_GATE_TIER (default 0 = recommend only).
+          TRIAGE_API_URL: ${{ vars.TRIAGE_API_URL }}
+          AI_GATE_TIER: ${{ vars.AI_GATE_TIER || '0' }}
+          QUARANTINE_CMD: ${{ vars.QUARANTINE_CMD }}
+          ROLLBACK_CMD: ${{ vars.ROLLBACK_CMD }}
+        run: |
+          ARGS="--live --attempt ${{ github.event.workflow_run.run_attempt }}"
+          [ -f signals/security_gate.json ] && ARGS="$ARGS --security-json signals/security_gate.json"
+          [ -f signals/trace.json ]         && ARGS="$ARGS --jaeger signals/trace.json"
+          if [ -n "$TRIAGE_API_URL" ]; then
+            ARGS="$ARGS --api-url $TRIAGE_API_URL"
+          else
+            ARGS="$ARGS --tier $AI_GATE_TIER"
+          fi
+          python scripts/ci_gate.py $ARGS

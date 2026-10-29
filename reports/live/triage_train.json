@@ -1,0 +1,285 @@
+{
+  "corpus": "data/processed/corpus_live.jsonl.gz",
+  "out": "src/models/saved_live",
+  "reports": "reports/live",
+  "epochs": 40,
+  "batch_size": 32,
+  "lr": 0.005,
+  "hidden": 32,
+  "emb_dim": 24,
+  "layers": 1,
+  "dropout": 0.3,
+  "max_len": 32,
+  "patience": 8,
+  "seed": 42,
+  "shuffle_tokens": false,
+  "weight_power": 0.5,
+  "attn_entropy": 0.0,
+  "attn_target": 0.0,
+  "feature_schema": "jaeger_adapter_v1",
+  "tag": null,
+  "device": "cpu",
+  "labels": [
+    "PASS",
+    "INFRA_FLAKE",
+    "DATA_FAULT",
+    "ENV_FAULT",
+    "REAL_BUG"
+  ],
+  "vocab_size": 22,
+  "params": 49590,
+  "best_val_macro_f1": 1.0,
+  "test_macro_f1": 1.0,
+  "test_acc": 1.0,
+  "train_seconds": 6.0,
+  "meta": {
+    "labels": [
+      "PASS",
+      "INFRA_FLAKE",
+      "DATA_FAULT",
+      "ENV_FAULT",
+      "REAL_BUG"
+    ],
+    "vocab_size": 22,
+    "max_len": 32,
+    "min_freq": 2,
+    "seed": 42,
+    "split_sizes": {
+      "train": 1250,
+      "val": 300,
+      "test": 300
+    },
+    "scenarios_per_split": {
+      "train": 25,
+      "val": 6,
+      "test": 6
+    },
+    "per_class": {
+      "DATA_FAULT": {
+        "test": [
+          1,
+          50
+        ],
+        "val": [
+          1,
+          50
+        ],
+        "train": [
+          4,
+          200
+        ]
+      },
+      "ENV_FAULT": {
+        "test": [
+          1,
+          50
+        ],
+        "val": [
+          1,
+          50
+        ],
+        "train": [
+          4,
+          200
+        ]
+      },
+      "INFRA_FLAKE": {
+        "test": [
+          2,
+          100
+        ],
+        "val": [
+          2,
+          100
+        ],
+        "train": [
+          8,
+          400
+        ]
+      },
+      "PASS": {
+        "test": [
+          1,
+          50
+        ],
+        "val": [
+          1,
+          50
+        ],
+        "train": [
+          5,
+          250
+        ]
+      },
+      "REAL_BUG": {
+        "test": [
+          1,
+          50
+        ],
+        "val": [
+          1,
+          50
+        ],
+        "train": [
+          4,
+          200
+        ]
+      }
+    },
+    "class_counts": {
+      "train": {
+        "PASS": 574,
+        "INFRA_FLAKE": 222,
+        "DATA_FAULT": 94,
+        "ENV_FAULT": 200,
+        "REAL_BUG": 160
+      },
+      "val": {
+        "PASS": 161,
+        "INFRA_FLAKE": 33,
+        "DATA_FAULT": 11,
+        "ENV_FAULT": 50,
+        "REAL_BUG": 45
+      },
+      "test": {
+        "PASS": 131,
+        "INFRA_FLAKE": 63,
+        "DATA_FAULT": 17,
+        "ENV_FAULT": 50,
+        "REAL_BUG": 39
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.8894200519561768,
+      "val_macro_f1": 0.7626255094240519,
+      "val_acc": 0.903333306312561,
+      "val_per_class_f1": {
+        "PASS": 0.9498525073746312,
+        "INFRA_FLAKE": 0.21621621621621626,
+        "DATA_FAULT": 0.6470588235294118,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3501793493270874,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.3055486093044281,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.2944849221229553,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.2915576976776123,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.2844245581626892,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.2839233838558197,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.28308289320468905,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.28488091969490054,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.27984037113189697,
+      "val_macro_f1": 1.0,
+      "val_acc": 1.0,
+      "val_per_class_f1": {
+        "PASS": 1.0,
+        "INFRA_FLAKE": 1.0,
+        "DATA_FAULT": 1.0,
+        "ENV_FAULT": 1.0,
+        "REAL_BUG": 1.0
+      }
+    }
+  ]
+}

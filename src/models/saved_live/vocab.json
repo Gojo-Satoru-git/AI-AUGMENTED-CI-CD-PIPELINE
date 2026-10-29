@@ -1,0 +1,63 @@
+{
+  "vocab": {
+    "<PAD>": 0,
+    "<UNK>": 1,
+    "GET_/browse|ERR": 2,
+    "GET_/browse|OK": 3,
+    "GET_/checkout|ERR": 4,
+    "GET_/checkout|OK": 5,
+    "db.insert_order|ERR": 6,
+    "db.insert_order|IOEXC": 7,
+    "db.insert_order|OK": 8,
+    "db.select_catalog|OK": 9,
+    "db.select_stock|OK": 10,
+    "inventory.connect|IOEXC": 11,
+    "inventory.list|ERR": 12,
+    "inventory.list|OK": 13,
+    "inventory.reserve|ERR": 14,
+    "inventory.reserve|OK": 15,
+    "orders.create_order|ERR": 16,
+    "orders.create_order|OK": 17,
+    "orders.persist|ERR": 18,
+    "orders.persist|OK": 19,
+    "orders.validate|ERR": 20,
+    "orders.validate|OK": 21
+  },
+  "labels": [
+    "PASS",
+    "INFRA_FLAKE",
+    "DATA_FAULT",
+    "ENV_FAULT",
+    "REAL_BUG"
+  ],
+  "feat_mean": [
+    1.8496968746185303,
+    1.8496968746185303,
+    1.438124418258667,
+    1.6664879322052002,
+    1.8496968746185303,
+    9.237201690673828,
+    0.6172115802764893,
+    0.33085712790489197,
+    1.7851300239562988
+  ],
+  "feat_std": [
+    0.31038787961006165,
+    0.31038787961006165,
+    0.21297985315322876,
+    0.3785913586616516,
+    0.31038787961006165,
+    1.0460749864578247,
+    0.7899647355079651,
+    0.44085612893104553,
+    0.3358665704727173
+  ],
+  "max_len": 32,
+  "feature_schema": "jaeger_adapter_v1",
+  "model": {
+    "emb_dim": 24,
+    "hidden": 32,
+    "layers": 1,
+    "dropout": 0.3
+  }
+}

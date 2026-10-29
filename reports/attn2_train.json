@@ -1,0 +1,232 @@
+{
+  "corpus": "data/processed/corpus.jsonl.gz",
+  "out": "src/models/saved",
+  "reports": "reports",
+  "epochs": 20,
+  "batch_size": 256,
+  "lr": 0.003,
+  "hidden": 64,
+  "emb_dim": 48,
+  "layers": 1,
+  "dropout": 0.3,
+  "max_len": 256,
+  "patience": 4,
+  "seed": 42,
+  "shuffle_tokens": false,
+  "weight_power": 0.5,
+  "attn_entropy": 0.5,
+  "attn_target": 0.5,
+  "tag": "attn2",
+  "device": "cpu",
+  "labels": [
+    "PASS",
+    "INFRA_FLAKE",
+    "DATA_FAULT",
+    "ENV_FAULT",
+    "REAL_BUG"
+  ],
+  "vocab_size": 87,
+  "params": 125430,
+  "best_val_macro_f1": 0.7507828592066608,
+  "test_macro_f1": 0.7438797540472327,
+  "test_acc": 0.7655283808708191,
+  "train_seconds": 1222.6,
+  "meta": {
+    "labels": [
+      "PASS",
+      "INFRA_FLAKE",
+      "DATA_FAULT",
+      "ENV_FAULT",
+      "REAL_BUG"
+    ],
+    "vocab_size": 87,
+    "max_len": 256,
+    "min_freq": 2,
+    "seed": 42,
+    "split_sizes": {
+      "train": 40967,
+      "val": 10287,
+      "test": 10513
+    },
+    "scenarios_per_split": {
+      "train": 234,
+      "val": 57,
+      "test": 57
+    },
+    "per_class": {
+      "DATA_FAULT": {
+        "test": [
+          13,
+          3068
+        ],
+        "val": [
+          13,
+          3068
+        ],
+        "train": [
+          59,
+          13924
+        ]
+      },
+      "ENV_FAULT": {
+        "test": [
+          5,
+          832
+        ],
+        "val": [
+          3,
+          691
+        ],
+        "train": [
+          17,
+          2573
+        ]
+      },
+      "INFRA_FLAKE": {
+        "test": [
+          25,
+          2319
+        ],
+        "val": [
+          26,
+          2273
+        ],
+        "train": [
+          96,
+          10112
+        ]
+      },
+      "PASS": {
+        "test": [
+          13,
+          2964
+        ],
+        "val": [
+          14,
+          3096
+        ],
+        "train": [
+          61,
+          13064
+        ]
+      },
+      "REAL_BUG": {
+        "test": [
+          1,
+          1330
+        ],
+        "val": [
+          1,
+          1159
+        ],
+        "train": [
+          1,
+          1294
+        ]
+      }
+    },
+    "class_counts": {
+      "train": {
+        "DATA_FAULT": 13924,
+        "INFRA_FLAKE": 10112,
+        "ENV_FAULT": 2573,
+        "REAL_BUG": 1294,
+        "PASS": 13064
+      },
+      "val": {
+        "DATA_FAULT": 3068,
+        "INFRA_FLAKE": 2273,
+        "ENV_FAULT": 691,
+        "REAL_BUG": 1159,
+        "PASS": 3096
+      },
+      "test": {
+        "DATA_FAULT": 3068,
+        "INFRA_FLAKE": 2319,
+        "ENV_FAULT": 832,
+        "REAL_BUG": 1330,
+        "PASS": 2964
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.2703301188309495,
+      "val_macro_f1": 0.5154706527300188,
+      "val_acc": 0.6295323967933655,
+      "val_per_class_f1": {
+        "PASS": 0.6154781815417363,
+        "INFRA_FLAKE": 0.6151922475773678,
+        "DATA_FAULT": 0.8270535041446873,
+        "ENV_FAULT": 0.3207171314741036,
+        "REAL_BUG": 0.19891219891219894
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.9510537075630335,
+      "val_macro_f1": 0.7507828592066608,
+      "val_acc": 0.7914844155311584,
+      "val_per_class_f1": {
+        "PASS": 0.8100781928757602,
+        "INFRA_FLAKE": 0.7200873362445415,
+        "DATA_FAULT": 0.8166691208953026,
+        "ENV_FAULT": 0.4070796460176991,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.8828923968610932,
+      "val_macro_f1": 0.7438974402905087,
+      "val_acc": 0.7801108360290527,
+      "val_per_class_f1": {
+        "PASS": 0.7649232518476408,
+        "INFRA_FLAKE": 0.7220043572984749,
+        "DATA_FAULT": 0.830741410488246,
+        "ENV_FAULT": 0.4018181818181818,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.8632271289258012,
+      "val_macro_f1": 0.7369217673623595,
+      "val_acc": 0.7861378192901611,
+      "val_per_class_f1": {
+        "PASS": 0.7863467580691231,
+        "INFRA_FLAKE": 0.7045137273150303,
+        "DATA_FAULT": 0.8285857071464269,
+        "ENV_FAULT": 0.36516264428121714,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.8508388432261156,
+      "val_macro_f1": 0.7384142535916558,
+      "val_acc": 0.7769029140472412,
+      "val_per_class_f1": {
+        "PASS": 0.754424492959566,
+        "INFRA_FLAKE": 0.7123088128186453,
+        "DATA_FAULT": 0.8303275671696725,
+        "ENV_FAULT": 0.395010395010395,
+        "REAL_BUG": 1.0
+      }
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.8418674169305007,
+      "val_macro_f1": 0.7414802661640592,
+      "val_acc": 0.784971296787262,
+      "val_per_class_f1": {
+        "PASS": 0.7736981711573363,
+        "INFRA_FLAKE": 0.7249448123620309,
+        "DATA_FAULT": 0.8258706467661692,
+        "ENV_FAULT": 0.3828877005347594,
+        "REAL_BUG": 1.0
+      }
+    }
+  ]
+}

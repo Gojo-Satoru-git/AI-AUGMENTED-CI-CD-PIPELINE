@@ -1,0 +1,273 @@
+{
+  "corpus": "data/processed/corpus.jsonl.gz",
+  "out": "src/models/saved_cmp/textcnn",
+  "reports": "reports/cmp",
+  "epochs": 20,
+  "batch_size": 256,
+  "lr": 0.003,
+  "hidden": 64,
+  "emb_dim": 48,
+  "layers": 1,
+  "dropout": 0.3,
+  "max_len": 256,
+  "patience": 4,
+  "seed": 42,
+  "shuffle_tokens": false,
+  "weight_power": 0.5,
+  "attn_entropy": 0.0,
+  "attn_target": 0.0,
+  "feature_schema": "tracebench_v1",
+  "arch": "textcnn",
+  "tag": "textcnn",
+  "device": "cpu",
+  "labels": [
+    "PASS",
+    "INFRA_FLAKE",
+    "DATA_FAULT",
+    "ENV_FAULT",
+    "REAL_BUG"
+  ],
+  "vocab_size": 87,
+  "params": 32981,
+  "best_val_macro_f1": 0.5918522785829184,
+  "test_macro_f1": 0.6059379548765719,
+  "test_acc": 0.6152382493019104,
+  "train_seconds": 571.2,
+  "meta": {
+    "labels": [
+      "PASS",
+      "INFRA_FLAKE",
+      "DATA_FAULT",
+      "ENV_FAULT",
+      "REAL_BUG"
+    ],
+    "vocab_size": 87,
+    "max_len": 256,
+    "min_freq": 2,
+    "seed": 42,
+    "split_sizes": {
+      "train": 40967,
+      "val": 10287,
+      "test": 10513
+    },
+    "scenarios_per_split": {
+      "train": 234,
+      "val": 57,
+      "test": 57
+    },
+    "per_class": {
+      "DATA_FAULT": {
+        "test": [
+          13,
+          3068
+        ],
+        "val": [
+          13,
+          3068
+        ],
+        "train": [
+          59,
+          13924
+        ]
+      },
+      "ENV_FAULT": {
+        "test": [
+          5,
+          832
+        ],
+        "val": [
+          3,
+          691
+        ],
+        "train": [
+          17,
+          2573
+        ]
+      },
+      "INFRA_FLAKE": {
+        "test": [
+          25,
+          2319
+        ],
+        "val": [
+          26,
+          2273
+        ],
+        "train": [
+          96,
+          10112
+        ]
+      },
+      "PASS": {
+        "test": [
+          13,
+          2964
+        ],
+        "val": [
+          14,
+          3096
+        ],
+        "train": [
+          61,
+          13064
+        ]
+      },
+      "REAL_BUG": {
+        "test": [
+          1,
+          1330
+        ],
+        "val": [
+          1,
+          1159
+        ],
+        "train": [
+          1,
+          1294
+        ]
+      }
+    },
+    "class_counts": {
+      "train": {
+        "DATA_FAULT": 13924,
+        "INFRA_FLAKE": 10112,
+        "ENV_FAULT": 2573,
+        "REAL_BUG": 1294,
+        "PASS": 13064
+      },
+      "val": {
+        "DATA_FAULT": 3068,
+        "INFRA_FLAKE": 2273,
+        "ENV_FAULT": 691,
+        "REAL_BUG": 1159,
+        "PASS": 3096
+      },
+      "test": {
+        "DATA_FAULT": 3068,
+        "INFRA_FLAKE": 2319,
+        "ENV_FAULT": 832,
+        "REAL_BUG": 1330,
+        "PASS": 2964
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.2881020473055196,
+      "val_macro_f1": 0.45665814511020536,
+      "val_acc": 0.5676096081733704,
+      "val_per_class_f1": {
+        "PASS": 0.4765113974231912,
+        "INFRA_FLAKE": 0.4837175265276253,
+        "DATA_FAULT": 0.7809794547099107,
+        "ENV_FAULT": 0.3502824858757062,
+        "REAL_BUG": 0.19179986101459345
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.0942805870822943,
+      "val_macro_f1": 0.5730709040086339,
+      "val_acc": 0.6199086308479309,
+      "val_per_class_f1": {
+        "PASS": 0.4404166666666666,
+        "INFRA_FLAKE": 0.6541747037751446,
+        "DATA_FAULT": 0.8021240916713248,
+        "ENV_FAULT": 0.4267185473411154,
+        "REAL_BUG": 0.5419205105889179
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.0534427159917996,
+      "val_macro_f1": 0.5726631601811206,
+      "val_acc": 0.5999805331230164,
+      "val_per_class_f1": {
+        "PASS": 0.4683605761450073,
+        "INFRA_FLAKE": 0.5775784753363229,
+        "DATA_FAULT": 0.8164818798609962,
+        "ENV_FAULT": 0.458974358974359,
+        "REAL_BUG": 0.5419205105889179
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.045150040618483,
+      "val_macro_f1": 0.5055782082504516,
+      "val_acc": 0.6550986766815186,
+      "val_per_class_f1": {
+        "PASS": 0.6879460230958868,
+        "INFRA_FLAKE": 0.6187453323375653,
+        "DATA_FAULT": 0.8266862709060835,
+        "ENV_FAULT": 0.33751425313568983,
+        "REAL_BUG": 0.056999161777032695
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.0369272171268151,
+      "val_macro_f1": 0.5918522785829184,
+      "val_acc": 0.609215497970581,
+      "val_per_class_f1": {
+        "PASS": 0.5002797985450477,
+        "INFRA_FLAKE": 0.6132963988919667,
+        "DATA_FAULT": 0.8335233751425314,
+        "ENV_FAULT": 0.47955974842767296,
+        "REAL_BUG": 0.5326020719073734
+      }
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.0367515322799332,
+      "val_macro_f1": 0.5603603948097622,
+      "val_acc": 0.607368528842926,
+      "val_per_class_f1": {
+        "PASS": 0.4434114071160379,
+        "INFRA_FLAKE": 0.633284954039671,
+        "DATA_FAULT": 0.8023435090965155,
+        "ENV_FAULT": 0.38636363636363635,
+        "REAL_BUG": 0.5363984674329502
+      }
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.032265664415683,
+      "val_macro_f1": 0.5591228111538412,
+      "val_acc": 0.6189365386962891,
+      "val_per_class_f1": {
+        "PASS": 0.4733821492182862,
+        "INFRA_FLAKE": 0.6262434864992894,
+        "DATA_FAULT": 0.7961081699813993,
+        "ENV_FAULT": 0.3639921722113503,
+        "REAL_BUG": 0.5358880778588808
+      }
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.0294807930106975,
+      "val_macro_f1": 0.5740198338325292,
+      "val_acc": 0.642753005027771,
+      "val_per_class_f1": {
+        "PASS": 0.564188673484964,
+        "INFRA_FLAKE": 0.6780565936999464,
+        "DATA_FAULT": 0.8045662100456622,
+        "ENV_FAULT": 0.319910514541387,
+        "REAL_BUG": 0.5033771773906861
+      }
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.0196319026076617,
+      "val_macro_f1": 0.5744984028307855,
+      "val_acc": 0.6138815879821777,
+      "val_per_class_f1": {
+        "PASS": 0.4747993579454254,
+        "INFRA_FLAKE": 0.6508264462809918,
+        "DATA_FAULT": 0.8126350789692436,
+        "ENV_FAULT": 0.39246778989098113,
+        "REAL_BUG": 0.5417633410672854
+      }
+    }
+  ]
+}

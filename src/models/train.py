@@ -20,6 +20,7 @@ if str(ROOT) not in sys.path:
 from src.data.dataset import (collate, prepare, N_TASK_FEATS,  # noqa: E402
                               BucketBatchSampler, seq_lengths)
 from src.features.triage_lstm import TriageLSTM               # noqa: E402
+from src.features.baseline_models import ARCHS, build         # noqa: E402
 
 
 def set_seed(s):
@@ -77,6 +78,23 @@ def main():
                          "(precision 0.28 despite recall 0.71) - a fractional "
                          "power keeps the minority-class boost without letting "
                          "it dominate the decision boundary.")
+    ap.add_argument("--attn-entropy", type=float, default=0.0,
+                    help="weight of the attention-entropy bonus (0 = off). "
+                         "Counters attention collapse, where all weight lands "
+                         "on one span and evidence_spans stop being informative.")
+    ap.add_argument("--attn-target", type=float, default=0.0,
+                    help="with --attn-entropy: penalise only attention whose "
+                         "normalised entropy falls below this target (0 = use "
+                         "the flat entropy bonus, which over-corrects)")
+    ap.add_argument("--feature-schema", default="tracebench_v1",
+                    help="which feature definitions the corpus uses: "
+                         "'tracebench_v1' (the HDFS corpus) or "
+                         "'jaeger_adapter_v1' (src/data/jaeger_corpus.py). "
+                         "Recorded in vocab.json; the gate trusts adapter-made "
+                         "traces only for a model trained on the latter.")
+    ap.add_argument("--arch", default="triage", choices=ARCHS,
+                    help="comparison architecture (src/features/baseline_models.py); "
+                         "default is the proposed model")
     ap.add_argument("--tag", default=None,
                     help="override the output filename tag (default: "
                          "'shuffled' or 'triage'); use this to run an "
@@ -117,9 +135,13 @@ def main():
     print(f"class weights (power={args.weight_power}):",
           {l: round(float(w), 3) for l, w in zip(labels, weights)})
 
-    model = TriageLSTM(len(vocab), len(labels), n_task_feats=N_TASK_FEATS,
-                       emb_dim=args.emb_dim, hidden=args.hidden,
-                       layers=args.layers, dropout=args.dropout).to(device)
+    if args.arch == "triage":
+        model = TriageLSTM(len(vocab), len(labels), n_task_feats=N_TASK_FEATS,
+                           emb_dim=args.emb_dim, hidden=args.hidden,
+                           layers=args.layers, dropout=args.dropout).to(device)
+    else:
+        model = build(args.arch, len(vocab), len(labels), args.emb_dim,
+                      args.hidden, args.dropout).to(device)
     print(f"parameters: {sum(p.numel() for p in model.parameters()):,}")
 
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-4)
@@ -140,7 +162,25 @@ def main():
         for b in loaders["train"]:
             b = {k: v.to(device) for k, v in b.items()}
             opt.zero_grad()
-            loss = crit(model(b), b["y"])
+            if args.attn_entropy > 0:
+                logits, w = model(b, return_attention=True)
+                loss = crit(logits, b["y"])
+                H = -(w * torch.log(w.clamp_min(1e-9))).sum(dim=1)
+                if args.attn_target > 0:
+                    # Hinge on NORMALISED entropy (H / log n): penalise only
+                    # attention that is more concentrated than the target,
+                    # leave legitimately peaked attention alone. A flat entropy
+                    # bonus (target 0) over-corrects to perfectly uniform
+                    # attention - measured: normalised entropy 1.000, i.e.
+                    # evidence spans carry no information.
+                    span_n = b["mask"].sum(dim=1).clamp_min(2).float()
+                    Hn = H / torch.log(span_n)
+                    loss = loss + args.attn_entropy * torch.relu(
+                        args.attn_target - Hn).mean()
+                else:
+                    loss = loss - args.attn_entropy * H.mean()
+            else:
+                loss = crit(model(b), b["y"])
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             opt.step()
@@ -181,6 +221,7 @@ def main():
          "feat_mean": ds["train"].feat_mean.tolist(),
          "feat_std": ds["train"].feat_std.tolist(),
          "max_len": args.max_len,
+         "feature_schema": args.feature_schema,
          "model": {"emb_dim": args.emb_dim, "hidden": args.hidden,
                    "layers": args.layers, "dropout": args.dropout}}, indent=2))
     print(f"saved {ckpt} and {out_dir/'vocab.json'}")

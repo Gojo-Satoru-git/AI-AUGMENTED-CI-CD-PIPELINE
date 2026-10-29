@@ -1,7 +1,7 @@
 {
   "agent_id": "replay_demo_agent",
   "tier_after_honest_stream": 3,
-  "tier_after_fault_injection": 2,
+  "tier_after_fault_injection": 1,
   "steps": [
     {
       "step": 0,
@@ -105160,8 +105160,8 @@
       "truth": "REAL_BUG",
       "correct": false,
       "tier_before": 1,
-      "tier_after": 2,
-      "tier_action": "promoted"
+      "tier_after": 1,
+      "tier_action": null
     },
     {
       "step": 3,
@@ -105169,9 +105169,9 @@
       "predicted": "PASS",
       "truth": "REAL_BUG",
       "correct": false,
-      "tier_before": 2,
+      "tier_before": 1,
       "tier_after": 1,
-      "tier_action": "demoted"
+      "tier_action": null
     },
     {
       "step": 4,
@@ -105180,8 +105180,8 @@
       "truth": "REAL_BUG",
       "correct": false,
       "tier_before": 1,
-      "tier_after": 2,
-      "tier_action": "promoted"
+      "tier_after": 1,
+      "tier_action": null
     }
   ]
 }

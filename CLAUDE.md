@@ -5,9 +5,11 @@ Final-year project, Dept. of IT, MIT Anna University.
 Team: Praveen Kumar C, Jaiprakash S, Dharshini T. Guide: Dr. P. Anandha Kumar.
 
 Roadmap: `PHASE2_PLAN.md` (9 workstreams, S0–S8). Component docs: `README.md`.
-Complete: **S1** (data), **S2** (triage model), **S3** (stateful trust
-tiers), **S4** (root-cause localization). S5–S8 deliberately scoped down or
-open — see PHASE2_PLAN.md's "scope calls" section for what was cut and why.
+Complete: **S1** (data), **S2** (triage model), **S3** (stateful trust tiers), **S4** (root-cause
+localization), and the scoped-down release-gate layer **S5** (Jaeger adapter, drift guard, canary,
+metrics), **S6** (CVE reachability), **S7** (chaos harness), **S8** (actuator, CI gate, workflows).
+`USER_TODO.md` separates what is *verified* from what is only *written* (workflows, Docker, a live
+Jaeger were never run) and lists what only the team can do. `PHASE2_PLAN.md` §6b has the scope calls.
 
 ---
 
@@ -29,7 +31,25 @@ python scripts/run_rca_eval.py                              # S4: builds op_late
 python scripts/replay_trust_trajectory.py                   # S3: replays the test set through the
                                                               # trust engine, T0->T3, then a demotion demo
 python run_api.py                                          # http://localhost:8000/docs
-pytest -q                                                  # 65 tests (11 skip without the opa CLI)
+pytest -q                                                  # ~155 tests (12 skip: opa CLI, legacy marker)
+
+# S5-S8 and the demos
+python scripts/demo_review2.py | python scripts/demo_final.py     # narrated demos (--auto: no pauses)
+python scripts/run_security_gate.py                        # S6: pip-audit findings -> reachable or not
+python scripts/run_chaos.py [--sweep]                      # S7: inject faults into healthy traces
+python scripts/ci_gate.py --jaeger samples/jaeger_hdfs_data_fault.json --tier 3   # S8, dry run
+python scripts/adapter_fidelity.py                         # what the Jaeger route costs the model
+python scripts/attention_stats.py [--ckpt ...]             # attention concentration
+python scripts/make_samples.py                             # regenerate samples/
+python scripts/jaeger_to_corpus.py --manifest m.json       # train on YOUR system's labelled traces
+python scripts/bootstrap.py --check                        # artifact status (--tracebench <p> rebuilds)
+
+# The minimal live project (full walkthrough: LIVE_PROJECT.md)
+python scripts/live_peek.py                                # what a trace of each fault looks like
+python scripts/live_collect.py                             # 37 labelled experiments -> live_data/
+python scripts/jaeger_to_corpus.py --manifest live_data/manifest.json --out data/processed/corpus_live.jsonl.gz
+python src/models/train.py --corpus data/processed/corpus_live.jsonl.gz --out src/models/saved_live     --reports reports/live --feature-schema jaeger_adapter_v1 --weight-power 0.5 --epochs 40     --patience 8 --batch-size 32 --lr 0.005 --hidden 32 --emb-dim 24 --max-len 32
+python scripts/live_run.py [--pause 0.1] [--api http://127.0.0.1:8000] [--otlp http://127.0.0.1:4318/v1/traces]
 ```
 
 Dataset lives outside the repo at `D:\PROJECTS\7th SEM\dataset\HDFS_v3_TraceBench\tracebench`
@@ -88,6 +108,41 @@ Each of these is load-bearing, and most are covered by a test in `tests/test_tri
     faulty span. `src/rca/localize.py` evaluates against a stated proxy (a span whose own
     status is non-OK/USER), not independently-verified ground truth. Say this plainly in any
     report; don't imply the top-k numbers are validated against a labelled root cause.
+11. **The model is valid only inside its training schema, and the gate abstains outside it.**
+    Two independent guards (`drift_check`): vocabulary (OOV rate) AND feature schema. The second
+    exists because of a measurement, not a hunch: stock Jaeger exports of the model's OWN training
+    traces score 20% (`reports/adapter_fidelity.json`; 90% come back REAL_BUG) while corpus records
+    score 74%. Do not loosen either guard to make a demo look better.
+12. **Detection of clock skew in Jaeger reuses the S1 idea** (`align_service_clocks`: first-reach
+    offset, anchored on the parent's window) rather than trusting span timestamps.
+13. **Decide vs. execute stays split.** `gate.py`/`pipeline.py` decide and log; `actuator.py`
+    executes and contains no policy. The actuator is dry-run by default, runs commands as argv
+    lists, and validates any node/deployment name that came from trace data (traces are untrusted).
+14. **The CI gate runs on `workflow_run`, executing only default-branch code**; the PR's
+    artifacts are untrusted data. Don't "simplify" it to `pull_request` - then it cannot rerun the
+    failed jobs (GitHub only reruns completed runs) - and never check out PR code in that workflow.
+15. **Accuracy-retention demotion is opt-in** (`TRUST_RETENTION=1` / `RETENTION_ENABLED`) because
+    the replay in `reports/trust_trajectory.png` was produced without it and must stay reproducible.
+16. **Promotion and retention count only evidence earned SINCE THE LAST TIER CHANGE**
+    (`EVIDENCE_SINCE_LAST_CHANGE`, `tier_history.after_decision_id`). Found by the live closed loop,
+    not by a unit test: a defect invisible to the model produced 53 tier flips in 50 decisions, because
+    right after a demotion the next correct decision re-ran the promotion test over the same last-200
+    history that had earned the tier (198/200 -> Wilson 0.96) and bought it straight back. The
+    committed full replay is unchanged (same promotions at steps 14/906/1130); its injected-fault
+    segment now ends at T1 instead of oscillating. NOTE: Figure 3's zoom panel in the Review 2
+    report/deck was drawn before this fix and shows the oscillation - regenerate it.
+17. **Scenarios are assigned to splits once, keyed on their fault class** (`split_by_scenario`).
+    The old per-class assignment let the PASS pass overwrite every other class when one scenario held
+    several classes (a faulty experiment also serves healthy requests), silently emptying test classes
+    - a live corpus once showed "test accuracy 1.0" with no INFRA_FLAKE/DATA_FAULT in test. Verified
+    byte-identical on the HDFS corpus, so all reported HDFS numbers stand.
+18. **The live system (`src/live/`) is a pipeline demonstration, not a benchmark.** Labels are exact
+    (the injector knows whether the fault bit each request), but the faults are simple: a scalar-GBM
+    baseline scores 1.000 and the LSTM 1.000. Never quote the live macro-F1 as model quality; the
+    credible number is the HDFS one. `silent_bug` is invisible by construction and `novel_bug` is caught
+    by trace *shape* (short, aborted trace), the same confound as REAL_BUG on HDFS.
+19. **Use `127.0.0.1`, not `localhost`, in script defaults and docs.** On Windows `localhost` costs
+    ~2 s per call (IPv6 first): measured 2,111 ms vs 26 ms.
 
 ---
 
@@ -141,9 +196,14 @@ the aligned call DAG regardless — it means the *classifier* does not need orde
   weighting.
 - **COMPOUND probe still mostly fails, modestly better**: 15,563 / 20,010 (77.8%, was 82%) of
   multi-fault traces classified PASS.
-- **Attention has collapsed**: weight 1.0 on one token, ~0 elsewhere, so `evidence_spans` are
-  not yet informative. Does not block S4 (RCA uses the separate z-score method in
-  `src/rca/localize.py`, not attention) but should be fixed before those spans are trusted.
+- **Attention concentration: moderate, and two fixes attempted both over-corrected.** Measured
+  (`scripts/attention_stats.py`, 600 test traces >= 10 spans) on the shipped model: mean top-span
+  weight 0.54, 8.3% of traces put >90% on one span, normalised entropy 0.48. Regularised retrains
+  (`train.py --attn-entropy/--attn-target`): a flat entropy bonus (0.05) gave entropy 1.000 and macro-F1
+  0.7408; a hinge on normalised entropy (target 0.5, weight 0.5) gave 0.90 and 0.7439 - both near-uniform
+  attention (evidence spans uninformative) and slightly worse than the shipped 0.7464, so NEITHER was
+  adopted. Open: a much weaker penalty (e.g. weight 0.05, target 0.3), or multi-head pooling. Until then
+  treat `evidence_spans` as a hint; RCA does not depend on them.
 
 ---
 
@@ -154,17 +214,18 @@ design decision 9), S3 (Wilson-bound promotion + immediate demotion, `scripts/re
 demonstrates T0→T3 then a demotion) and S4 (`src/rca/localize.py`, `scripts/run_rca_eval.py`
 — beats random and slowest-span baselines on top-k localisation, see `reports/rca_evaluation.json`).
 
+Done since: S5-S8 (see the status line), accuracy-retention demotion, the Jaeger -> corpus route.
+
 Still open, in order:
 
-1. Multi-label output instead of 5-way softmax, to attack the COMPOUND failure (82% of
+1. **Team-only work** (`USER_TODO.md`): run the workflows on GitHub, run the compose stack, collect
+   labelled live traces and train a model for that system, run real chaos against a live target.
+2. Multi-label output instead of 5-way softmax, to attack the COMPOUND failure (~78% of
    multi-fault traces still classified PASS).
-2. Fix attention collapse (entropy regularisation or multi-head pooling) — not on S4's
-   critical path (RCA uses the z-score method, not attention), but still needed before
-   `evidence_spans` in the triage API response are trustworthy.
 3. Decide how REAL_BUG is reported: shape-matched control, or excluded from the headline
-   (currently: excluded).
-4. Scoped-down S5–S8 (Jaeger adapter, pip-audit+reachability, chaos script, GH Actions gate)
-   — see PHASE2_PLAN.md's scope-call table for what each was cut down to and why.
+   (currently: excluded). Note the confound now has a measured downstream cost (decision 11).
+4. PASS false alarms (~40% of healthy traces flagged; the chaos report's control row) - the
+   weakest operational number.
 
 ---
 

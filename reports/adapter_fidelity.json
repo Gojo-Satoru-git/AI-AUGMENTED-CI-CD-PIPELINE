@@ -1,0 +1,42 @@
+{
+  "n_traces": 400,
+  "classes": {
+    "PASS": 117,
+    "INFRA_FLAKE": 96,
+    "DATA_FAULT": 107,
+    "REAL_BUG": 51,
+    "ENV_FAULT": 29
+  },
+  "corpus": {
+    "accuracy": 0.74,
+    "macro_f1": 0.6913,
+    "agreement_with_corpus_path": 1.0,
+    "predicted": {
+      "PASS": 91,
+      "INFRA_FLAKE": 109,
+      "DATA_FAULT": 132,
+      "REAL_BUG": 51,
+      "ENV_FAULT": 17
+    }
+  },
+  "rich_export": {
+    "accuracy": 0.63,
+    "macro_f1": 0.5565,
+    "agreement_with_corpus_path": 0.74,
+    "predicted": {
+      "PASS": 64,
+      "DATA_FAULT": 235,
+      "INFRA_FLAKE": 52,
+      "REAL_BUG": 49
+    }
+  },
+  "bare_export": {
+    "accuracy": 0.2,
+    "macro_f1": 0.1277,
+    "agreement_with_corpus_path": 0.2,
+    "predicted": {
+      "REAL_BUG": 358,
+      "DATA_FAULT": 42
+    }
+  }
+}

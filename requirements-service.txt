@@ -1,0 +1,6 @@
+# Runtime dependencies of the triage API only (src/policy_engine/main.py and what
+# it imports). Training, evaluation, notebooks and tests need requirements.txt.
+torch==2.13.0
+fastapi==0.141.1
+uvicorn==0.52.1
+pydantic==2.13.4

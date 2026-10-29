@@ -1,11 +1,30 @@
 # Datasets and derived corpora are large; rebuild with src/data/build_sequences.py
+# (or scripts/bootstrap.py)
 data/
 venv/
 .venv/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+.pytest_cache/
 
-# Training outputs. reports/ and the checkpoint ARE committed - they are
-# the evidence for review. Only scratch graph renders are ignored.
+# Training outputs. reports/ and the model checkpoint + vocab + RCA baseline in
+# src/models/saved/ ARE committed - the CI gate and the Docker image need them.
+# Only scratch renders and machine-specific files are ignored.
 graphs/
+*.log
+
+# Runtime trust state belongs to a deployment, not to the repository
+src/policy_engine/trust_tiers.db
+*.db
+
+# Superseded checkpoints / large scratch
+src/models/saved/*_baseline_backup.pth
+src/models/saved/trace_anomaly_lstm.pth
+
+# Raw scanner output goes stale: CI regenerates it on every run
+reports/pip_audit_raw.json
+reports/gate_decision.json
+reports/gate_comment.md
+live_data/
+.jaeger_poller_seen.json

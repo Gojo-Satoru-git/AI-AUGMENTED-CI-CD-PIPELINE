@@ -1,0 +1,64 @@
+# Observability stack for the AI gate.
+#   docker compose -f infra/docker-compose.yml up --build
+#
+#   Triage API       http://localhost:8000/docs     (+ /metrics for Prometheus)
+#   Jaeger UI        http://localhost:16686
+#   HotROD demo app  http://localhost:8080          (click a button -> trace in Jaeger)
+#   Prometheus       http://localhost:9090
+#   Grafana          http://localhost:3000          (admin / admin, dashboard pre-loaded)
+#
+# Then feed Jaeger traces to the agent:
+#   python scripts/jaeger_poller.py --jaeger http://localhost:16686 --service frontend --once
+#
+# NOT VERIFIED on the machine this was written on (no Docker run was possible
+# there). Image tags are common ones but unpinned where noted - pin them to the
+# versions your `docker pull` resolves before the review.
+services:
+  triage-api:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports: ["8000:8000"]
+    volumes:
+      - triage-state:/state
+    environment:
+      TRUST_DB_PATH: /state/trust_tiers.db
+      TRUST_RETENTION: "1"
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.76.0      # TODO pin
+    ports:
+      - "16686:16686"    # UI + query API
+      - "4317:4317"      # OTLP gRPC
+      - "4318:4318"      # OTLP HTTP
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+
+  hotrod:
+    image: jaegertracing/example-hotrod:latest  # TODO pin
+    command: ["all"]
+    ports: ["8080:8080"]
+    environment:
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+    depends_on: [jaeger]
+
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    ports: ["9090:9090"]
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on: [triage-api]
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    ports: ["3000:3000"]
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/ai-gate.json
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on: [prometheus]
+
+volumes:
+  triage-state:

@@ -4,7 +4,9 @@ Team 18 · Dept. of Information Technology, MIT Anna University
 Praveen Kumar C · Jaiprakash S · Dharshini T · Guide: Dr. P. Anandha Kumar
 
 Phase 2, workstreams **S1 (data foundation)**, **S2 (triage model)**,
-**S3 (stateful trust tiers)** and **S4 (root-cause localization)**.
+**S3 (stateful trust tiers)**, **S4 (root-cause localization)**, and the
+release-gate layer **S5–S8** (observability, security, chaos, actuator + CI).
+What is verified vs. only written, and what the team still has to do: [`USER_TODO.md`](USER_TODO.md).
 Full roadmap and scope decisions: [`PHASE2_PLAN.md`](PHASE2_PLAN.md).
 
 ---
@@ -91,6 +93,21 @@ tests/test_triage.py          taxonomy, alignment, policy, leakage, serving
 tests/test_trust.py           S3: Wilson bound, promotion, demotion
 tests/test_rca.py             S4: suspect ranking, postmortem generation
 tests/test_rego_policy.py     policy.py <-> triage_policy.rego equivalence (needs opa CLI)
+
+src/observability/            S5: jaeger_adapter (Jaeger JSON -> spans, clock-skew alignment,
+                              drift guard), canary (Wilson-gated health score), metrics (/metrics)
+src/security/reachability.py  S6: which flagged CVEs can the running service actually reach?
+src/chaos/experiments.py      S7: fault injectors + runner feeding the trust engine
+src/actuator/actuator.py      S8: executes decisions (dry-run default, injection-guarded)
+src/policy_engine/gate.py     release gate: security > canary > drift > triage, tier-governed
+src/policy_engine/pipeline.py one entry point used by the API, CI script and demos
+src/data/jaeger_corpus.py     labelled Jaeger exports -> training corpus (train on YOUR system)
+scripts/                      demo_review2 | demo_final | ci_gate | run_security_gate | run_chaos |
+                              jaeger_poller | adapter_fidelity | attention_stats | make_samples |
+                              jaeger_to_corpus | bootstrap
+.github/workflows/            ci.yml (tests + security) -> ai-gate.yml (workflow_run: decide + act)
+infra/  Dockerfile            Jaeger + HotROD + Prometheus + Grafana + API compose stack (unrun)
+samples/                      Jaeger exports of real test traces, a foreign trace, canary sets
 ```
 
 ---
@@ -160,3 +177,57 @@ as `/triage`, and returns the top-N suspect spans ranked against a
 PASS-class latency baseline (`src/rca/localize.py`), plus a ready-to-paste
 Markdown postmortem. Requires `scripts/run_rca_eval.py` to have been run
 once to build the baseline.
+
+
+---
+
+## Release gate (S5–S8)
+
+One decision from four independent signals, most conservative wins:
+
+```
+Jaeger trace ─► adapter ─► triage model ─► policy.decide (trust tier) ─┐
+                    └─► drift guard (vocabulary + feature schema) ─────┤
+pip-audit ─► reachability ─► security verdict ─────────────────────────┼─► release_gate ─► actuator
+baseline + canary traces ─► canary health ─────────────────────────────┘   (decides)      (executes)
+```
+
+Precedence (`src/policy_engine/gate.py`): security BLOCK › canary ROLLBACK › out-of-
+distribution → human › the triage decision. The trust tier still decides what the
+agent may *execute*; below an action's tier it can only recommend it.
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /api/v1/gate` | the full gate (spans / Jaeger trace / canary sets / security verdict) |
+| `POST /api/v1/triage/jaeger` | triage a Jaeger trace, with the drift guard |
+| `GET /api/v1/security/verdict` | stored reachability-aware CVE verdict |
+| `GET /metrics` | Prometheus scrape (decisions by class/action, trust tier, accuracy) |
+
+```bash
+python scripts/ci_gate.py --jaeger samples/jaeger_hdfs_data_fault.json --tier 3   # dry run
+python scripts/run_security_gate.py        # 27 flagged -> 0 reachable on this environment
+python scripts/run_chaos.py                # inject faults into healthy traces, watch the agent
+python scripts/demo_final.py               # narrated tour of all of the above
+```
+
+**Know the limits.** The shipped model is valid only for TraceBench-schema HDFS traces.
+Measured on 400 held-out traces (`reports/adapter_fidelity.json`): 74% accuracy on
+corpus records, 63% on Jaeger exports that carry the training schema, **20% on stock
+Jaeger exports of the same traces** (90% come back REAL_BUG). So the gate abstains on
+anything that is not demonstrably in-distribution, and `src/data/jaeger_corpus.py` +
+`scripts/jaeger_to_corpus.py` provide the route to train a model on your own system's
+labelled traces. Details and the team's remaining tasks: [`USER_TODO.md`](USER_TODO.md).
+
+
+---
+
+## Minimal live project
+
+A 4-service toy app (`src/live/minishop.py`) with injectable faults, real retries and
+exact labels, wired through the whole pipeline: **collect → train → serve → watch the agent earn
+and lose autonomy live.** About 45 minutes, Python only; Jaeger/Grafana optional.
+Step-by-step guide, demo script and likely professor questions: [`LIVE_PROJECT.md`](LIVE_PROJECT.md).
+
+It is a pipeline demonstration, not a benchmark: the faults are simple (a scalar baseline also scores
+100%), so the credible accuracy figure stays the HDFS one (macro-F1 0.746). Running it is also what
+exposed a flapping bug in the trust engine, now fixed (`CLAUDE.md` decision 16).

@@ -33,12 +33,14 @@ REVIEW = "PAUSE_FOR_MANUAL_REVIEW"
 ESCALATE = "ESCALATE_TO_INFRA"
 QUARANTINE = "QUARANTINE_NODE"
 BLOCK = "BLOCK_MERGE_ALERT_DEV"
+ROLLBACK = "ROLLBACK_CANARY"        # S5/S8: canary health says revert
 
 RETRYABLE = {"INFRA_FLAKE"}
 NEVER_RETRY = {"DATA_FAULT", "ENV_FAULT", "REAL_BUG"}
 
 # Minimum tier at which the agent may take each action without a human.
 MIN_TIER = {ALLOW: 2, RETRY: 2, ESCALATE: 1, QUARANTINE: 3, BLOCK: 1,
+            ROLLBACK: 2,
             REVIEW: 0}
 
 DEFAULT_CONFIDENCE_FLOOR = 0.60

@@ -1,0 +1,1714 @@
+{
+ "data": [
+  {
+   "traceID": "4b8d2965358cb07e",
+   "spans": [
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s0",
+     "operationName": "fs_-copyToLocal",
+     "startTime": 1700000000000000,
+     "duration": 9073649607,
+     "references": [],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "USER"
+      },
+      {
+       "key": "triage.agent",
+       "value": "User"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s1",
+     "operationName": "RPC:getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 2339722,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s2",
+     "operationName": "getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 226062,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s1"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s3",
+     "operationName": "getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 146107,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s1"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s4",
+     "operationName": "RPC:getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 1000469,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s5",
+     "operationName": "getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 166111,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s4"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s6",
+     "operationName": "RPC:getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 1231661,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s7",
+     "operationName": "RPC:getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 1086411,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s8",
+     "operationName": "getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 153640,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s7"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s9",
+     "operationName": "getBlockLocations",
+     "startTime": 1700000000000000,
+     "duration": 201301,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s7"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s10",
+     "operationName": "RPC:getBlockLocations",
+     "startTime": 1700000000000000,
+     "duration": 6625696,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s11",
+     "operationName": "blockSeekTo",
+     "startTime": 1700000000000000,
+     "duration": 9035211225,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s12",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 380253,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s13",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 31501,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s14",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 1725408,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s15",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 3607,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s16",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 259035,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s17",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 875505,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s18",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 215716,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s19",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 15978,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s20",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 2244095,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s21",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 3006435898,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s22",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 18992,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s23",
+     "operationName": "RPC:getBlockLocations",
+     "startTime": 1700000000000000,
+     "duration": 4387521,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s24",
+     "operationName": "getBlockLocations",
+     "startTime": 1700000000000000,
+     "duration": 267649,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s23"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s25",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 15513,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s26",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 936705,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s27",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 206846,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s28",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 16597,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s29",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 664626,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s30",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 173477,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s31",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 15384,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s32",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 195558,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s33",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 0,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s34",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 3005277824,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s35",
+     "operationName": "RPC:getBlockLocations",
+     "startTime": 1700000000000000,
+     "duration": 4326715,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s36",
+     "operationName": "getBlockLocations",
+     "startTime": 1700000000000000,
+     "duration": 194372,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s35"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s37",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 26307,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s38",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 721703,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s39",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 211492,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s40",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 15569,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s41",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 873267,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s42",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 201973,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s43",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 15379,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s44",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 535600,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s45",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 3004949527,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s46",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 15379,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s47",
+     "operationName": "RPC:getBlockLocations",
+     "startTime": 1700000000000000,
+     "duration": 4097711,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s48",
+     "operationName": "getBlockLocations",
+     "startTime": 1700000000000000,
+     "duration": 244552,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s47"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s49",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 17853,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s50",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 429901,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s51",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 182453,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s52",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 14260,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s53",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 714262,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s54",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 171223,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s55",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 14754,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s56",
+     "operationName": "OP:_try_new_BlockReader",
+     "startTime": 1700000000000000,
+     "duration": 507130,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s57",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 123764,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s58",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 14050,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s59",
+     "operationName": "blockSeekTo",
+     "startTime": 1700000000000000,
+     "duration": 155082,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s60",
+     "operationName": "chooseDataNode",
+     "startTime": 1700000000000000,
+     "duration": 81037,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "4b8d2965358cb07e",
+     "spanID": "s61",
+     "operationName": "bestNode",
+     "startTime": 1700000000000000,
+     "duration": 14137,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "4b8d2965358cb07e",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "IOEXC"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    }
+   ],
+   "processes": {
+    "0": {
+     "serviceName": "namenode"
+    },
+    "2": {
+     "serviceName": "client01"
+    }
+   },
+   "triage_extra": {
+    "n_tid": 10,
+    "n_host": 2,
+    "n_edge": 10,
+    "n_rep": 62,
+    "lat": 9073649607
+   }
+  }
+ ]
+}

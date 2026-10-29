@@ -1,0 +1,14 @@
+# Overlay: serve the model trained on the live system (minishop) instead of the
+# shipped HDFS model, so the Grafana tier gauge moves while scripts/live_run.py runs.
+#
+#   docker compose -f infra/docker-compose.yml -f infra/docker-compose.live.yml up --build
+#   python scripts/live_run.py --api http://127.0.0.1:8000 --agent-id triage_agent --pause 0.1
+#
+# Requires src/models/saved_live/ (steps 1-3 of LIVE_PROJECT.md). Not run on the
+# machine this was written on (images not pulled).
+services:
+  triage-api:
+    volumes:
+      - ../src/models/saved_live:/models/live:ro
+    environment:
+      TRIAGE_MODEL_DIR: /models/live

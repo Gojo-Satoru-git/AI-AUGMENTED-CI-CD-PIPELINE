@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -26,6 +27,9 @@ from src.policy_engine import policy as P                      # noqa: E402
 from src.policy_engine.database import (                       # noqa: E402
     agent_scorecard, get_agent_tier, init_db, log_decision,
     record_ground_truth, set_agent_tier)
+from src.observability.jaeger_adapter import jaeger_to_spans   # noqa: E402
+from src.observability.metrics import render_metrics           # noqa: E402
+from src.policy_engine.pipeline import evaluate as run_pipeline  # noqa: E402
 
 app = FastAPI(
     title="AI Test-Triage Policy Engine",
@@ -43,7 +47,13 @@ def predictor():
     global _predictor
     if _predictor is None:
         from src.models.predict import TriagePredictor
-        _predictor = TriagePredictor()
+        mdir = os.environ.get("TRIAGE_MODEL_DIR")
+        if mdir:       # e.g. a model trained on this system's own Jaeger traces
+            _predictor = TriagePredictor(
+                ckpt=Path(mdir) / "triage_lstm.pth",
+                vocab_path=Path(mdir) / "vocab.json")
+        else:
+            _predictor = TriagePredictor()
     return _predictor
 
 
@@ -211,6 +221,121 @@ def postmortem(req: PostmortemRequest):
                              d.action, req.top_n)
     return {"test_id": req.test_id, "classification": pred["classification"],
             "suspects": suspects, "postmortem_markdown": md}
+
+
+
+# ---------------------------------------------------------------------------
+# S5/S6/S8: Jaeger ingestion, the full release gate, metrics, security verdict
+# ---------------------------------------------------------------------------
+SECURITY_REPORT = ROOT / "reports" / "security_gate.json"
+
+
+def _security_verdict():
+    if not SECURITY_REPORT.exists():
+        return None
+    import json
+    return json.loads(SECURITY_REPORT.read_text(encoding="utf-8"))["verdict"]
+
+
+def _first_jaeger_trace(doc: dict) -> dict:
+    if "data" in doc:
+        if not doc["data"]:
+            raise HTTPException(422, "jaeger document contains no traces")
+        return doc["data"][0]
+    return doc
+
+
+class JaegerTriageRequest(BaseModel):
+    test_id: str
+    trace: dict = Field(..., description="a Jaeger trace object, or the "
+                        "{'data': [...]} envelope from GET /api/traces/<id>")
+    agent_id: str = "triage_agent"
+    attempt: int = 1
+    retry_budget: int = P.DEFAULT_RETRY_BUDGET
+
+
+@app.post("/api/v1/triage/jaeger")
+def triage_jaeger(req: JaegerTriageRequest):
+    """Triage a live Jaeger trace. The result carries an out-of-distribution
+    guard: a trace from a system the model was not trained on is routed to a
+    human instead of being classified with false confidence."""
+    try:
+        spans, extra = jaeger_to_spans(_first_jaeger_trace(req.trace))
+        return run_pipeline(predictor(), spans=spans, extra=extra,
+                            agent_id=req.agent_id, attempt=req.attempt,
+                            retry_budget=req.retry_budget, test_id=req.test_id)
+    except FileNotFoundError as e:
+        raise HTTPException(503, f"no trained model available: {e}") from e
+    except (ValueError, KeyError) as e:
+        raise HTTPException(422, f"bad trace: {e}") from e
+
+
+class GateRequest(BaseModel):
+    test_id: str
+    trace_sequence: Optional[str] = None
+    spans: Optional[list[Span]] = None
+    jaeger: Optional[dict] = None
+    extra: Optional[dict] = Field(
+        None, description="training-schema task counts (n_tid, n_host, n_edge, "
+        "n_rep, lat) plus \"schema_attested\": true. Without it a raw-span "
+        "trace is treated as out-of-distribution - see "
+        "reports/adapter_fidelity.json for why")
+    baseline_traces: Optional[list[list[Span]]] = Field(
+        None, description="stable-version traces, for the canary comparison")
+    canary_traces: Optional[list[list[Span]]] = None
+    agent_id: str = "triage_agent"
+    attempt: int = 1
+    retry_budget: int = P.DEFAULT_RETRY_BUDGET
+    use_security_report: bool = True
+    security: Optional[dict] = Field(
+        None, description="a security verdict computed by the caller (e.g. the "
+        "CI runner scanning the PR's own dependencies); overrides the server's "
+        "stored report")
+
+
+@app.post("/api/v1/gate")
+def gate(req: GateRequest):
+    """The full release gate: triage + security + canary + drift -> one action."""
+    spans, extra = None, None
+    if req.jaeger:
+        try:
+            spans, extra = jaeger_to_spans(_first_jaeger_trace(req.jaeger))
+        except (ValueError, KeyError) as e:
+            raise HTTPException(422, f"bad jaeger trace: {e}") from e
+    elif req.spans:
+        spans = [s.model_dump() for s in req.spans]
+    try:
+        return run_pipeline(
+            predictor() if (spans or req.trace_sequence) else None,
+            spans=spans, tokens=req.trace_sequence, extra=extra or req.extra,
+            agent_id=req.agent_id, attempt=req.attempt,
+            retry_budget=req.retry_budget,
+            security=req.security or (_security_verdict()
+                                      if req.use_security_report else None),
+            baseline_traces=[[s.model_dump() for s in t]
+                             for t in (req.baseline_traces or [])],
+            canary_traces=[[s.model_dump() for s in t]
+                           for t in (req.canary_traces or [])],
+            test_id=req.test_id)
+    except FileNotFoundError as e:
+        raise HTTPException(503, f"no trained model available: {e}") from e
+    except ValueError as e:
+        raise HTTPException(422, str(e)) from e
+
+
+@app.get("/api/v1/security/verdict")
+def security_verdict():
+    v = _security_verdict()
+    if v is None:
+        raise HTTPException(
+            404, "no security report yet. Run scripts/run_security_gate.py")
+    return v
+
+
+@app.get("/metrics", response_class=PlainTextResponse)
+def metrics():
+    """Prometheus scrape endpoint (see infra/prometheus.yml)."""
+    return render_metrics()
 
 
 @app.get("/api/v1/health")

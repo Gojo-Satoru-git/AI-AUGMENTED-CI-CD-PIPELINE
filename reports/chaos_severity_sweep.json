@@ -1,0 +1,38 @@
+{
+  "0.1": {
+    "slow_datanode": 0.833,
+    "network_disconnect": 0.967,
+    "datanode_kill": 1.0,
+    "block_corruption": 1.0,
+    "readonly_datanode": 1.0,
+    "silent_regression": 0.333,
+    "control": 0.433
+  },
+  "0.25": {
+    "slow_datanode": 1.0,
+    "network_disconnect": 0.967,
+    "datanode_kill": 1.0,
+    "block_corruption": 1.0,
+    "readonly_datanode": 1.0,
+    "silent_regression": 0.333,
+    "control": 0.433
+  },
+  "0.5": {
+    "slow_datanode": 1.0,
+    "network_disconnect": 1.0,
+    "datanode_kill": 1.0,
+    "block_corruption": 1.0,
+    "readonly_datanode": 1.0,
+    "silent_regression": 0.333,
+    "control": 0.433
+  },
+  "1.0": {
+    "slow_datanode": 1.0,
+    "network_disconnect": 1.0,
+    "datanode_kill": 1.0,
+    "block_corruption": 1.0,
+    "readonly_datanode": 1.0,
+    "silent_regression": 0.4,
+    "control": 0.433
+  }
+}

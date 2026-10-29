@@ -1,0 +1,55 @@
+# Stage 1: the PR's own checks. Produces the SIGNALS the AI gate consumes:
+#   - test results                          (pass/fail)
+#   - security verdict (reachability-aware) (artifact: security_gate.json)
+#   - an optional trace of the failing run  (artifact: trace.json, you wire this up)
+# Nothing here decides or acts on the PR - that is ai-gate.yml's job.
+name: ci
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install
+        run: pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.txt
+      - name: Tests
+        # tests that need the 2 GB dataset / built corpus skip themselves
+        run: pytest -q
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install
+        run: pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.txt
+      - name: pip-audit (exits non-zero when it finds anything; the gate decides)
+        run: pip-audit -l -f json -o audit.json --progress-spinner off || true
+      - name: Reachability analysis
+        # --fail-on block: only a REACHABLE vulnerability fails this job
+        run: python scripts/run_security_gate.py --audit-json audit.json --out security_gate.json --fail-on block
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gate-signals
+          path: security_gate.json
+
+  # TODO(team): after your integration tests run against the instrumented app,
+  # export the failing request's trace from Jaeger and upload it as
+  # `trace.json` in the same artifact, e.g.
+  #   curl -s "$JAEGER_URL/api/traces/$TRACE_ID" -o trace.json
+  # See USER_TODO.md, section "Live trace -> gate".

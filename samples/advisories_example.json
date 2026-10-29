@@ -1,0 +1,9 @@
+{
+ "_comment": "keys are a vuln id or any alias; symbols are the vulnerable functions as dotted names. pip-audit reports neither severity nor symbols - fill these in from the advisory text to let the gate narrow 'imported' down to 'actually called'.",
+ "CVE-0000-00000": {
+  "severity": "high",
+  "symbols": [
+   "yaml.load"
+  ]
+ }
+}

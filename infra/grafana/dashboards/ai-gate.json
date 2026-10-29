@@ -1,0 +1,47 @@
+{
+  "uid": "ai-gate",
+  "title": "AI release gate",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "time": {"from": "now-6h", "to": "now"},
+  "panels": [
+    {
+      "id": 1, "type": "gauge", "title": "Agent trust tier (0 observe .. 3 autonomous)",
+      "gridPos": {"h": 7, "w": 6, "x": 0, "y": 0},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "agent_trust_tier{agent_id=\"triage_agent\"}", "refId": "A"}],
+      "fieldConfig": {"defaults": {"min": 0, "max": 3,
+        "thresholds": {"mode": "absolute", "steps": [
+          {"color": "red", "value": null}, {"color": "orange", "value": 1},
+          {"color": "yellow", "value": 2}, {"color": "green", "value": 3}]}}}
+    },
+    {
+      "id": 2, "type": "stat", "title": "Scored accuracy (decisions with ground truth)",
+      "gridPos": {"h": 7, "w": 6, "x": 6, "y": 0},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "agent_scored_accuracy{agent_id=\"triage_agent\"}", "refId": "A"}],
+      "fieldConfig": {"defaults": {"unit": "percentunit", "min": 0, "max": 1}}
+    },
+    {
+      "id": 3, "type": "stat", "title": "Autonomous decisions (total)",
+      "gridPos": {"h": 7, "w": 6, "x": 12, "y": 0},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "triage_decisions_autonomous_total", "refId": "A"}]
+    },
+    {
+      "id": 4, "type": "bargauge", "title": "Decisions by action",
+      "gridPos": {"h": 7, "w": 6, "x": 18, "y": 0},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "sum by (action) (triage_decisions_total)",
+                   "legendFormat": "{{action}}", "refId": "A"}]
+    },
+    {
+      "id": 5, "type": "timeseries", "title": "Decision rate by classification",
+      "gridPos": {"h": 9, "w": 24, "x": 0, "y": 7},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "sum by (classification) (rate(triage_decisions_total[5m]))",
+                   "legendFormat": "{{classification}}", "refId": "A"}]
+    }
+  ]
+}

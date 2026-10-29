@@ -1,0 +1,386 @@
+{
+  "verdict": {
+    "verdict": "ALLOW",
+    "rule": "no-reachable-vuln",
+    "reason": "no vulnerability is reachable from the running service",
+    "summary": {
+      "flagged": 27,
+      "by_reachability": {
+        "not-imported": 27
+      },
+      "actionable": 0,
+      "false_positive_reduction_pct": 100.0
+    }
+  },
+  "findings": [
+    {
+      "package": "jupyter-server",
+      "version": "2.20.0",
+      "vuln_id": "PYSEC-2026-4054",
+      "aliases": [
+        "GHSA-c3mw-737p-c7g2",
+        "CVE-2026-86049"
+      ],
+      "fix_versions": [
+        "2.21.0"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "jupyterlab",
+      "version": "4.6.2",
+      "vuln_id": "PYSEC-2026-4055",
+      "aliases": [
+        "CVE-2026-102904",
+        "GHSA-3325-v43h-43rv"
+      ],
+      "fix_versions": [
+        "4.5.11",
+        "4.6.4"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "jupyterlab",
+      "version": "4.6.2",
+      "vuln_id": "PYSEC-2026-4056",
+      "aliases": [
+        "CVE-2026-102830",
+        "GHSA-3jqq-pw4j-pqcj"
+      ],
+      "fix_versions": [
+        "4.5.11",
+        "4.6.4"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "jupyterlab",
+      "version": "4.6.2",
+      "vuln_id": "PYSEC-2026-4057",
+      "aliases": [
+        "CVE-2026-102831",
+        "GHSA-6966-vjj6-99xv"
+      ],
+      "fix_versions": [
+        "4.5.11",
+        "4.6.4"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "jupyterlab",
+      "version": "4.6.2",
+      "vuln_id": "CVE-2026-102832",
+      "aliases": [
+        "GHSA-jwrc-gm9j-263p"
+      ],
+      "fix_versions": [
+        "4.5.11",
+        "4.6.4"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "notebook",
+      "version": "7.6.1",
+      "vuln_id": "PYSEC-2026-4112",
+      "aliases": [
+        "CVE-2026-102831",
+        "GHSA-6966-vjj6-99xv",
+        "PYSEC-2026-4058",
+        "PYSEC-2026-4057",
+        "PYSEC-2026-4060"
+      ],
+      "fix_versions": [
+        "7.6.3"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-1795",
+      "aliases": [
+        "GHSA-4xh5-x5gv-qwph",
+        "CVE-2025-8869"
+      ],
+      "fix_versions": [
+        "25.3"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-1796",
+      "aliases": [
+        "GHSA-6vgw-5pg2-w6jp",
+        "CVE-2026-1703"
+      ],
+      "fix_versions": [
+        "26.0"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-2875",
+      "aliases": [
+        "CVE-2026-3219",
+        "GHSA-58qw-9mgm-455v"
+      ],
+      "fix_versions": [
+        "26.1"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-2876",
+      "aliases": [
+        "CVE-2026-6357",
+        "GHSA-jp4c-xjxw-mgf9"
+      ],
+      "fix_versions": [
+        "26.1"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-196",
+      "aliases": [
+        "GHSA-wf93-45jw-7689",
+        "CVE-2026-8643"
+      ],
+      "fix_versions": [
+        "26.1.2"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-1795",
+      "aliases": [
+        "GHSA-4xh5-x5gv-qwph",
+        "CVE-2025-8869"
+      ],
+      "fix_versions": [
+        "25.3"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-1796",
+      "aliases": [
+        "GHSA-6vgw-5pg2-w6jp",
+        "CVE-2026-1703"
+      ],
+      "fix_versions": [
+        "26.0"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-196",
+      "aliases": [
+        "GHSA-wf93-45jw-7689",
+        "CVE-2026-8643"
+      ],
+      "fix_versions": [
+        "26.1.2"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-2875",
+      "aliases": [
+        "CVE-2026-3219",
+        "GHSA-58qw-9mgm-455v"
+      ],
+      "fix_versions": [
+        "26.1"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-2876",
+      "aliases": [
+        "CVE-2026-6357",
+        "GHSA-jp4c-xjxw-mgf9"
+      ],
+      "fix_versions": [
+        "26.1"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-3721",
+      "aliases": [
+        "CVE-2026-13346",
+        "GHSA-qwm4-qh6w-59xr"
+      ],
+      "fix_versions": [
+        "26.2"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "pip",
+      "version": "25.0.1",
+      "vuln_id": "PYSEC-2026-3721",
+      "aliases": [
+        "CVE-2026-13346",
+        "GHSA-qwm4-qh6w-59xr"
+      ],
+      "fix_versions": [
+        "26.2.0"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "tornado",
+      "version": "6.5.7",
+      "vuln_id": "PYSEC-2026-3928",
+      "aliases": [
+        "GHSA-mpf4-983q-p7j4",
+        "CVE-2026-82397"
+      ],
+      "fix_versions": [
+        "6.5.8"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "tornado",
+      "version": "6.5.7",
+      "vuln_id": "GHSA-chx6-46f5-w4vp",
+      "aliases": [],
+      "fix_versions": [
+        "6.5.9"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "tornado",
+      "version": "6.5.7",
+      "vuln_id": "GHSA-c2m8-h5v5-343r",
+      "aliases": [],
+      "fix_versions": [
+        "6.5.9"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "tornado",
+      "version": "6.5.7",
+      "vuln_id": "GHSA-3hv7-mjh2-fv65",
+      "aliases": [],
+      "fix_versions": [
+        "6.5.9"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "tornado",
+      "version": "6.5.7",
+      "vuln_id": "GHSA-wwv5-g3v4-889x",
+      "aliases": [],
+      "fix_versions": [
+        "6.5.8"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "tornado",
+      "version": "6.5.7",
+      "vuln_id": "GHSA-8423-8fgw-73vq",
+      "aliases": [],
+      "fix_versions": [
+        "6.5.8"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "urllib3",
+      "version": "2.7.0",
+      "vuln_id": "PYSEC-2026-4177",
+      "aliases": [
+        "CVE-2026-97689",
+        "GHSA-vxq7-64xx-v4gw"
+      ],
+      "fix_versions": [
+        "2.8.0"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "urllib3",
+      "version": "2.7.0",
+      "vuln_id": "PYSEC-2026-4176",
+      "aliases": [
+        "GHSA-gh4c-6fx4-qh6g",
+        "CVE-2026-97688"
+      ],
+      "fix_versions": [
+        "2.8.0"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    },
+    {
+      "package": "urllib3",
+      "version": "2.7.0",
+      "vuln_id": "PYSEC-2026-4175",
+      "aliases": [
+        "GHSA-8988-9cw3-xx77",
+        "CVE-2026-97687"
+      ],
+      "fix_versions": [
+        "2.8.0"
+      ],
+      "reachability": "not-imported",
+      "evidence": "installed but nothing in the project imports it"
+    }
+  ]
+}

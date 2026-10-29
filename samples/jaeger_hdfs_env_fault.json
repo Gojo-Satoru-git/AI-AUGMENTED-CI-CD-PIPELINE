@@ -1,0 +1,4787 @@
+{
+ "data": [
+  {
+   "traceID": "28a289c1071e107d",
+   "spans": [
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s0",
+     "operationName": "fs_-copyFromLocal",
+     "startTime": 1700000000000000,
+     "duration": 37442970614,
+     "references": [],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "USER"
+      },
+      {
+       "key": "triage.agent",
+       "value": "User"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s1",
+     "operationName": "RPC:getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 7913797,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s2",
+     "operationName": "getFileInfo",
+     "startTime": 1700000000000000,
+     "duration": 924198,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s1"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s3",
+     "operationName": "create",
+     "startTime": 1700000000000000,
+     "duration": 2000110,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s1"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s4",
+     "operationName": "RPC:create",
+     "startTime": 1700000000000000,
+     "duration": 7367724,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s5",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 412211,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s4"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s6",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 67639559,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s7",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 4684471,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s8",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 62415422,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s9",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 2751188146,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s10",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 2808695952,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s9"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s11",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 14218453,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s9"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s12",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 13556599,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s9"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s13",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 2791745661,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s9"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s14",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 2799899499,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s13"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s15",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 8458053,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s13"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s16",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 7758678,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s13"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s17",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 2783614760,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s13"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s18",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 412928,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s9"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s19",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 31635144,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s20",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 5594365,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s21",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 25655706,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s22",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 1096074174,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s23",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1125753979,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s22"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s24",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 20828420,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s22"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s25",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 17775409,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s22"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s26",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1103620955,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s22"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s27",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1112386656,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s26"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s28",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 8228741,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s26"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s29",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 6730318,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s26"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s30",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1100686384,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s26"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s31",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1104423370,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s30"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s32",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 596140,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s30"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s33",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1094813138,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s30"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s34",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 415247,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s22"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s35",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 22295031,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s36",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 2663776,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s37",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 19274420,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s38",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 4435501564,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s39",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 4464878056,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s38"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s40",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 12245534,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s38"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s41",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 11366328,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s38"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s42",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 4450926064,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s38"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s43",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 4457870256,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s42"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s44",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 6865425,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s42"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s45",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 6173297,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s42"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s46",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 4447014460,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s42"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s47",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 4675056501,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s46"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s48",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 617520,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s46"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s49",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 4666136154,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s46"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s50",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 453758,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s38"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s51",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 28594253,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s52",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 1897755,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s53",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 26136697,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s54",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 1490575170,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s55",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1571524632,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s54"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s56",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 19513970,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s54"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s57",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 18637206,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s54"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s58",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1537353003,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s54"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s59",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 396302,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s54"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s60",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 28055174,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s61",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 1866560,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s62",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 25837840,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s63",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3258122064,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s59"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s64",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 10054666,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s59"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s65",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 9298219,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s59"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s66",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 3219252955,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s67",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3267144782,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s66"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s68",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 19892558,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s66"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s69",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 19021757,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s66"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s70",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3237143790,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s69"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s71",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3244429159,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s70"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s72",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 606378,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s70"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s73",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3240621436,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s66"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s74",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3223902476,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s70"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s75",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 434762,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s66"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s76",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 24224084,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s77",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 2000129,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s78",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 21839879,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s79",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 3232003542,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s80",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3265190545,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s79"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s81",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 15125487,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s79"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s82",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 14251104,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s79"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s83",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3248673422,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s79"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s84",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3258380333,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s83"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s85",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 10133750,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s83"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s86",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 9449625,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s83"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s87",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3242822809,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s83"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s88",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3248233164,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s87"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s89",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 1145899,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s87"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OTH"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s90",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3238548943,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s87"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OTH"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      },
+      {
+       "key": "error",
+       "value": true
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s91",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 601010,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s79"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s92",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 24091624,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s93",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 1917962,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s94",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 21715561,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s95",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3517903125,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s94"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s96",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 15252282,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s94"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s97",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 14375294,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s94"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s98",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 3480305420,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s99",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3499303520,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s87"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s100",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 500186,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s87"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s101",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3498553344,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s98"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s102",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 3506776539,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s101"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s103",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 6795291,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s101"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s104",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 5986886,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s101"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s105",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3484970800,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s104"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s106",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 3491125346,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s101"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s107",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 84727175,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s108",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 14931193,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s109",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 472334,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s108"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s110",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 69294945,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s111",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 4546589111,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s109"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s112",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 18266125,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s109"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s113",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 17005166,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s109"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s114",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 4512167234,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s115",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 4559503453,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s114"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s116",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 35687984,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s114"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s117",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 34907610,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s114"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s118",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 4489788389,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s117"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s119",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 4528523301,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s118"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s120",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 4515211777,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s114"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s121",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 1564864,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s118"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s122",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 4484484102,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s118"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s123",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 458703,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s114"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s124",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 33337833,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s125",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 2599612,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s126",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 30166021,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s127",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 1765867985,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s128",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1562299307,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s123"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s129",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 11160871,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s123"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s130",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 9979835,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s123"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s131",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1784942135,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s130"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s132",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 575233,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s130"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s133",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1533481009,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s123"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s134",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1552596210,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s133"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s135",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 896670,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s133"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s136",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1766468972,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s133"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s137",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1529905522,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s133"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s138",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 406676,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s127"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s139",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 32309255,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s140",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 1631465,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s141",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 30074916,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s142",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 2717512984,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s143",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 2758896856,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s142"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s144",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 24406823,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s142"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s145",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 2748070885,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s144"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s146",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 13830412,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s144"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s147",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 23723762,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s142"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s148",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 13043910,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s147"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s149",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 2719997389,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s147"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s150",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 2733218771,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s149"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s151",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 670477,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s149"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s152",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 2730458939,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s142"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s153",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 2709399025,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s149"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s154",
+     "operationName": "addBlock",
+     "startTime": 1700000000000000,
+     "duration": 469014,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s142"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s155",
+     "operationName": "nextBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 37259750,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s156",
+     "operationName": "RPC:addBlock",
+     "startTime": 1700000000000000,
+     "duration": 4937642,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s157",
+     "operationName": "createBlockOutputStream",
+     "startTime": 1700000000000000,
+     "duration": 31059748,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s158",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 7374794344,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s157"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s159",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 22304957,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s157"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s160",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 21539256,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s157"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s161",
+     "operationName": "OP:_send_block",
+     "startTime": 1700000000000000,
+     "duration": 7287135344,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "DFSClient"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s162",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 7367176937,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s160"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s163",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 15366295,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s160"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s164",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 14390030,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s160"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s165",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 7347877406,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s161"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s166",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 7338064868,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s165"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s167",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 7356336762,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s166"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s168",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 2235292,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s166"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s169",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 7336765816,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s166"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s170",
+     "operationName": "complete",
+     "startTime": 1700000000000000,
+     "duration": 1329854,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s161"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Namenode"
+      }
+     ],
+     "logs": [],
+     "processID": "0"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s171",
+     "operationName": "RPC:complete",
+     "startTime": 1700000000000000,
+     "duration": 4469458,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s0"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "RPC Client"
+      }
+     ],
+     "logs": [],
+     "processID": "2"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s172",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1815937534,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s171"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s173",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 22445152,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s171"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s174",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 21168005,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s171"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s175",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1790119060,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s171"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s176",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 2786838349,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s166"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s177",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 747475,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s166"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s178",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 2772091804,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s166"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s179",
+     "operationName": "writeBlock",
+     "startTime": 1700000000000000,
+     "duration": 1797463964,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s175"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s180",
+     "operationName": "OP:_new_BlockReceiver",
+     "startTime": 1700000000000000,
+     "duration": 10190047,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s175"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s181",
+     "operationName": "OP:_connect_next_Datanode",
+     "startTime": 1700000000000000,
+     "duration": 8416919,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s175"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    },
+    {
+     "traceID": "28a289c1071e107d",
+     "spanID": "s182",
+     "operationName": "receiveBlock",
+     "startTime": 1700000000000000,
+     "duration": 1780439011,
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "28a289c1071e107d",
+       "spanID": "s175"
+      }
+     ],
+     "tags": [
+      {
+       "key": "triage.status",
+       "value": "OK"
+      },
+      {
+       "key": "triage.agent",
+       "value": "Datanode"
+      }
+     ],
+     "logs": [],
+     "processID": "1"
+    }
+   ],
+   "processes": {
+    "1": {
+     "serviceName": "datanode01"
+    },
+    "0": {
+     "serviceName": "namenode"
+    },
+    "2": {
+     "serviceName": "client01"
+    }
+   },
+   "triage_extra": {
+    "n_tid": 82,
+    "n_host": 25,
+    "n_edge": 82,
+    "n_rep": 183,
+    "lat": 37442970614
+   }
+  }
+ ]
+}

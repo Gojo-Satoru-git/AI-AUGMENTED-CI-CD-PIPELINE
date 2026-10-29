@@ -1,0 +1,74 @@
+{
+ "data": [
+  {
+   "traceID": "foreign1",
+   "spans": [
+    {
+     "traceID": "foreign1",
+     "spanID": "a",
+     "operationName": "HTTP GET /dispatch",
+     "references": [],
+     "startTime": 1700000000000000,
+     "duration": 120000,
+     "tags": [],
+     "logs": [],
+     "processID": "p1"
+    },
+    {
+     "traceID": "foreign1",
+     "spanID": "b",
+     "operationName": "FindDriver",
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "foreign1",
+       "spanID": "a"
+      }
+     ],
+     "startTime": 1700000000001000,
+     "duration": 60000,
+     "tags": [],
+     "logs": [],
+     "processID": "p3"
+    },
+    {
+     "traceID": "foreign1",
+     "spanID": "c",
+     "operationName": "Route.ComputeETA",
+     "references": [
+      {
+       "refType": "CHILD_OF",
+       "traceID": "foreign1",
+       "spanID": "a"
+      }
+     ],
+     "startTime": 1700000000002000,
+     "duration": 40000,
+     "tags": [
+      {
+       "key": "error",
+       "value": true
+      },
+      {
+       "key": "http.status_code",
+       "value": 503
+      }
+     ],
+     "logs": [],
+     "processID": "p2"
+    }
+   ],
+   "processes": {
+    "p1": {
+     "serviceName": "frontend"
+    },
+    "p2": {
+     "serviceName": "route"
+    },
+    "p3": {
+     "serviceName": "driver"
+    }
+   }
+  }
+ ]
+}

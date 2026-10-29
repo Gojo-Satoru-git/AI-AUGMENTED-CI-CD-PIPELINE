@@ -1,0 +1,133 @@
+AI-augmented CI/CD triage agent - live showcase
+Team 18, MIT Anna University. Everything below runs on this machine.
+
+==============================================================================
+  1. THE SYSTEM: a 4-service shop with real faults injected into it
+==============================================================================
+frontend -> orders -> inventory -> db. Every request is traced; the fault injector
+knows exactly whether the fault bit, so every trace has a true label.
+
+
+=== fault: none           -> label PASS         (request ok)
+  frontend   GET /checkout                9.1 ms
+    orders     orders.create_order          7.0 ms
+      orders     orders.validate              1.5 ms
+      inventory  inventory.reserve            2.2 ms
+        db         db.select stock              2.1 ms
+      orders     orders.persist               3.1 ms
+        db         db.insert order              3.1 ms
+
+=== fault: flaky_net      -> label INFRA_FLAKE  (request ok)
+  frontend   GET /checkout               35.0 ms
+    orders     orders.create_order         32.9 ms
+      orders     orders.validate              1.4 ms
+      inventory  inventory.reserve            2.1 ms
+        db         db.select stock              2.1 ms
+      orders     orders.persist              29.2 ms
+        db         db.insert order             11.7 ms   <-- IOEXC
+        db         db.insert order             11.3 ms   <-- IOEXC
+        db         db.insert order              2.3 ms
+
+=== fault: host_down      -> label ENV_FAULT    (request FAILED)
+  frontend   GET /checkout               12.6 ms   <-- ERR
+    orders     orders.create_order         11.3 ms   <-- ERR
+      orders     orders.validate              1.2 ms
+      inventory  inventory.reserve           10.0 ms   <-- ERR
+        inventory  inventory.connect            0.8 ms   <-- IOEXC
+        inventory  inventory.connect            1.0 ms   <-- IOEXC
+        inventory  inventory.connect            1.2 ms   <-- IOEXC
+
+=== fault: silent_bug     -> label REAL_BUG     (request ok)
+  frontend   GET /checkout                7.9 ms
+    orders     orders.create_order          6.5 ms
+      orders     orders.validate              1.5 ms
+      inventory  inventory.reserve            1.7 ms
+        db         db.select stock              1.7 ms
+      orders     orders.persist               3.3 ms
+        db         db.insert order              3.3 ms
+
+==============================================================================
+  2. CREDIBLE NUMBERS: the model on real HDFS traces (TraceBench, 3 GB)
+==============================================================================
+held-out test: 10,513 traces from scenarios never seen in training
+
+  B1 majority class                                  macro-F1 0.090  ###
+  B3 bag-of-ops counts (Phase 1's representation)    macro-F1 0.542  #####################
+  B2 task scalars, GBM                               macro-F1 0.667  ##########################
+  B5 scalars + bag-of-ops, GBM                       macro-F1 0.704  ############################
+  BiLSTM + attention (ours)                          macro-F1 0.746  #############################
+
+  accuracy 0.769 | REAL_BUG missed 0 | healthy-looking failures wrongly retried 139 (1.3%)
+  Phase 1 reported 88.18%; that was a one-column rule. This is the honest figure.
+
+==============================================================================
+  3. THE LIVE MODEL: trained on traces from the shop above
+==============================================================================
+  schema jaeger_adapter_v1 | classes ['PASS', 'INFRA_FLAKE', 'DATA_FAULT', 'ENV_FAULT', 'REAL_BUG']
+  held-out test macro-F1 1.000
+  CAVEAT: the injected faults are simple - a plain scalar baseline scores 1.000 too.
+  So this proves the PIPELINE works; it is not the accuracy claim (section 2 is).
+
+==============================================================================
+  4. THE CLOSED LOOP: the agent earns autonomy, then loses it
+==============================================================================
+The agent starts at T0 (observe only). Every request: trace -> model -> policy ->
+gate -> decision; then the TRUE outcome is fed back and the trust tier may move.
+Promotion needs a Wilson lower bound over fresh evidence; a missed real bug demotes.
+
+  [  1] STEADY      (40 requests)
+      step  15: tier UP   T0 -> T1  wilson lower-bound accuracy 0.796 >= 0.7 over last 15 decisi
+    -> agent right 40/40
+  [ 41] SLOW DB     (30 requests)
+      step  45: tier UP   T1 -> T2  wilson lower-bound accuracy 0.886 >= 0.85 over last 30 decis
+    -> agent right 30/30
+  [ 71] STEADY      (20 requests)
+    -> agent right 20/20
+  [ 91] FLAKY NET   (30 requests)
+      step  97: tier UP   T2 -> T3  wilson lower-bound accuracy 0.931 >= 0.93 over last 52 decis
+    -> agent right 30/30
+  [121] STEADY      (20 requests)
+    -> agent right 20/20
+  [141] CORRUPTION  (30 requests)
+    -> agent right 30/30
+  [171] STEADY      (20 requests)
+    -> agent right 20/20
+  [191] HOST DOWN   (30 requests)
+    -> agent right 30/30
+  [221] STEADY      (20 requests)
+    -> agent right 20/20
+  [241] CODE BUG    (30 requests)
+    -> agent right 30/30
+  [271] STEADY      (20 requests)
+    -> agent right 18/20
+  [291] UNSEEN BUG  (30 requests)
+    -> agent right 30/30
+  [321] STEADY      (20 requests)
+    -> agent right 20/20
+  [341] SILENT BUG  (30 requests)
+      step 341: tier DOWN T3 -> T2  decision #47347 (test dfb8b598f026ff3c04a924ece39b4dee): age
+      step 341: UNSAFE autonomous action (unsafe-merge) truth=REAL_BUG agent said PASS
+      step 342: tier DOWN T2 -> T1  decision #47348 (test 4f147546aaf161ec43d8b51c1c561a7d): age
+      step 342: UNSAFE autonomous action (unsafe-merge) truth=REAL_BUG agent said PASS
+    -> agent right 2/30
+  [371] STEADY      (20 requests)
+      step 372: tier DOWN T1 -> T0  retention check failed: wilson lower-bound 0.053 < 0.60 (tie
+      step 387: tier UP   T0 -> T1  wilson lower-bound accuracy 0.796 >= 0.7 over last 15 decisi
+    -> agent right 20/20
+
+==============================================================================
+  5. SCORECARD AND HONEST LIMITS
+==============================================================================
+  requests served ............ 390
+  agent correct .............. 92.3%
+  trust tier ................. T0 -> T1 (4 promotions, 3 demotions)
+  autonomous actuations ...... 292 (dry-run)
+  unsafe autonomous actions .. 2
+
+  chart: D:\PROJECTS\7th SEM\AI-CI-CD-Pipeline\showcase_output\live_trajectory.png
+
+  Limits we state ourselves:
+   - the live shop is a toy; real-data quality is the HDFS macro-F1 0.746 (about 40% of healthy HDFS traces are flagged)
+   - the 'silent bug' is invisible in traces by construction - the agent is wrong on it, and the trust engine demoting it is the point
+   - the model is valid only inside its training schema; the gate abstains outside it
+   - GitHub workflows and the Grafana/Prometheus compose stack have not been run
